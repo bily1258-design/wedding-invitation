@@ -292,7 +292,7 @@ var slots = document.querySelectorAll('.ph');
     var img = document.createElement('img');
     img.className = 'phimg';
     img.src = CONFIG.photos[i];
-    img.alt = '';
+    img.loading = (i === 0) ? 'eager' : 'lazy';   /* 首屏主图立载, 其余滚动到再载 */
     s.appendChild(img);
     s.classList.remove('ph'); s.style.border='0'; s.style.background='none';
   } else {
