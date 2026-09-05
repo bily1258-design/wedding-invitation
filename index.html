@@ -479,6 +479,16 @@ mBtn.addEventListener('click', function(){
 (function(){
   var started=false, stopped=false, acc=0, raf=null, last=0;
   function halt(){ stopped=true; if(raf){cancelAnimationFrame(raf); raf=null;} }
+  function mScroll(){
+    var b=document.body, d=document.documentElement;
+    return Math.max(b?b.scrollHeight||0:0, d?d.scrollHeight||0:0) - innerHeight;
+  }
+  function debug(){
+    var b=document.body, d=document.documentElement, de=document.createElement('div');
+    de.style.cssText='position:fixed;left:0;top:0;z-index:9999;background:#C00;color:#fff;font-size:13px;padding:4px;white-space:pre';
+    de.textContent='dbg h='+innerHeight+' bs='+(b?b.scrollHeight:0)+' ds='+(d?d.scrollHeight:0)+' y='+scrollY+' max='+mScroll()+(stopped?' STOPPED':'');
+    b.appendChild(de); setTimeout(function(){de.remove();},6000);
+  }
   document.addEventListener('wheel',halt,{passive:true});
   var ty0=0;
   document.addEventListener('touchstart',function(e){
@@ -488,12 +498,15 @@ mBtn.addEventListener('click', function(){
     var y=(e.touches&&e.touches[0])?e.touches[0].clientY:0;
     if(Math.abs(y-ty0)>8) halt();   /* 真正拖动页面才停, 轻点/按住不误杀 */
   },{passive:true});
+  var t0=Date.now();
   function step(ts){
     if(stopped) return;
     if(!document.hidden){
-      var max=document.body.scrollHeight-innerHeight;
-      if(scrollY>=max-4){ halt(); return; }
-      if(last){ acc+=167*(ts-last)/1000; var n=Math.floor(acc); if(n>0){ acc-=n; window.scrollBy(0,n);} }
+      var m=mScroll();
+      if(m>2){ /* 内容高度就绪 */
+        if(scrollY>=m-4){ halt(); return; }
+        if(last){ acc+=167*(ts-last)/1000; var n=Math.floor(acc); if(n>0){ acc-=n; window.scrollBy(0,n);} }
+      } else if(Date.now()-t0>6000){ debug(); halt(); return; } /* 6s内容仍高0: 布局异常, 亮诊断 */
     }
     last=ts;
     raf=requestAnimationFrame(step);
@@ -502,6 +515,7 @@ mBtn.addEventListener('click', function(){
     if(started||stopped) return;
     started=true; last=0;
     raf=requestAnimationFrame(step);
+    setTimeout(function(){ if(!stopped && scrollY<2) debug(); }, 3500); /* 3.5s还没动: 亮诊断 */
   }
   /* 第一张图(封面主照)1.5s入场完成时开始上滑 */ setTimeout(begin, 1500);
 })();
