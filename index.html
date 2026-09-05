@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>我们结婚啦 · 婚礼邀请函</title>
+<style>
+  :root{
+    --gold:#b8860b; --gold-l:#d4af37; --ink:#4a3728; --bg:#faf6ee; --pink:#f3e2d7;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{width:100%;background:var(--bg);}
+  body{
+    font-family:"STKaiti","Kaiti SC","KaiTi","Noto Serif SC","Songti SC","SimSun",serif;
+    color:var(--ink); overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  }
+  /* 禁微信字体放大 */
+  body{text-size-adjust:none;-webkit-text-size-adjust:100%}
+
+  /* ============ 封面 ============ */
+  .cover{
+    position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    background:
+      radial-gradient(ellipse at 50% 110%, rgba(212,175,55,.28), transparent 60%),
+      radial-gradient(ellipse at 50% -10%, rgba(212,175,55,.20), transparent 55%),
+      linear-gradient(175deg,#fbf7ee 0%, #f6ead9 55%, #f3e2d7 100%);
+    transition:opacity 1.2s ease; padding:0 8vw;
+  }
+  .cover.hide{opacity:0;pointer-events:none}
+  .cover .xi{font-size:22vw;color:var(--gold-l);text-shadow:0 2px 14px rgba(184,134,11,.35);line-height:1;animation:xiPulse 3.2s ease-in-out infinite}
+  @keyframes xiPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+  .cover .cn{margin-top:6vh;font-size:7.6vw;letter-spacing:.5em;text-indent:.5em;color:var(--ink);font-weight:600}
+  .cover .and{margin-top:2.4vh;font-size:3.4vw;letter-spacing:.6em;text-indent:.6em;color:#b08d6a}
+  .cover .date{margin-top:3.2vh;font-size:3.6vw;letter-spacing:.35em;color:var(--gold);border-top:1px solid rgba(184,134,11,.5);border-bottom:1px solid rgba(184,134,11,.5);padding:1.6vh 4vw}
+  .cover .tip{position:absolute;bottom:9vh;font-size:3.3vw;color:#9a7b5f;letter-spacing:.4em;text-indent:.4em;animation:bounce 1.8s ease-in-out infinite}
+  @keyframes bounce{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-8px);opacity:.6}}
+  .cover .openbtn{
+    position:absolute;bottom:16vh;font-family:inherit;font-size:3.8vw;letter-spacing:.5em;text-indent:.5em;
+    color:#fff;background:linear-gradient(135deg,var(--gold-l),var(--gold));
+    border:none;border-radius:999px;padding:2.6vh 10vw;box-shadow:0 8px 24px rgba(184,134,11,.45);
+    cursor:pointer;
+  }
+  .cover .openbtn:active{transform:scale(.96)}
+  .deco{position:fixed;pointer-events:none;opacity:.5;z-index:1}
+  .petal1{top:-4vh;right:-6vw;font-size:22vw;transform:rotate(20deg)}
+  .petal2{bottom:-6vh;left:-8vw;font-size:26vw;transform:rotate(-18deg)}
+
+  /* ============ 正文 ============ */
+  main{position:relative;z-index:5;padding:0 0 14vh}
+  section{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10vh 7vw;position:relative}
+  .kicker{font-size:3vw;letter-spacing:.5em;text-indent:.5em;color:var(--gold);margin-bottom:2vh}
+  h2{font-size:7vw;letter-spacing:.3em;text-indent:.3em;margin-bottom:1.5vh}
+  .line{width:34vw;height:1px;background:linear-gradient(90deg,transparent,var(--gold-l),transparent);margin:2vh 0 3.5vh}
+  .fade{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
+  .fade.in{opacity:1;transform:none}
+
+  /* 邀请语 */
+  #invite p{font-size:4.6vw;line-height:2.1;text-align:center;letter-spacing:.12em}
+  #invite .who{margin-top:4vh;font-size:3.6vw;color:#9a7b5f}
+
+  /* 倒计时 */
+  #count .num{font-size:14vw;font-weight:700;color:var(--gold);line-height:1}
+  #count .unit{font-size:4vw;letter-spacing:.4em;text-indent:.4em;color:#9a7b5f;margin-top:2vh}
+  #count .sub{font-size:3.2vw;color:#b08d6a;margin-top:3vh;letter-spacing:.2em}
+
+  /* 照片 */
+  #photos{justify-content:flex-start;padding-top:12vh}
+  .card{width:80vw;aspect-ratio:4/5;border-radius:6px;overflow:hidden;box-shadow:0 14px 34px rgba(74,55,40,.18);background:linear-gradient(160deg,#fdf9f0,#f1dfd2);flex-shrink:0;display:flex;align-items:center;justify-content:center;border:8px solid #fff}
+  .card img{width:100%;height:100%;object-fit:cover}
+  .card .ph{text-align:center;color:#c3a187;font-size:4vw;letter-spacing:.2em}
+  .ph .ic{font-size:14vw;display:block;margin-bottom:2vh;opacity:.7}
+  .dots{display:flex;gap:2.6vw;margin-top:4vh}
+  .dots i{width:2vw;height:2vw;border-radius:50%;background:#d9c5b0;transition:.3s}
+  .dots i.on{background:var(--gold);width:5vw;border-radius:999px}
+  .hint{font-size:3vw;color:#b08d6a;margin-top:3vh;letter-spacing:.3em}
+
+  /* 婚礼信息 */
+  .infocard{
+    width:84vw;background:#fff;border-radius:8px;padding:6vh 7vw;text-align:center;
+    box-shadow:0 10px 30px rgba(74,55,40,.12);border-top:3px solid var(--gold-l);border-bottom:3px solid var(--gold-l);
+  }
+  .infocard .row{margin:3vh 0}
+  .infocard .lbl{font-size:3vw;color:var(--gold);letter-spacing:.4em;margin-bottom:1.2vh}
+  .infocard .val{font-size:4.8vw;letter-spacing:.14em}
+  .infocard .val.venue{font-size:5.6vw;font-weight:600}
+  .btn{
+    display:inline-block;margin-top:4vh;font-family:inherit;font-size:3.6vw;letter-spacing:.3em;
+    color:var(--gold);background:none;border:1px solid var(--gold-l);border-radius:999px;
+    padding:1.8vh 8vw;cursor:pointer;
+  }
+  .btn:active{background:#f6ead9}
+
+  /* 结尾 */
+  #end .thanks{font-size:4.4vw;line-height:2.2;text-align:center;letter-spacing:.14em}
+  #end .sign{margin-top:5vh;font-size:5vw;letter-spacing:.4em;color:var(--gold)}
+
+  /* 音乐开关 */
+  #music{
+    position:fixed;right:4.5vw;bottom:5.5vh;z-index:60;width:11vw;height:11vw;min-width:42px;min-height:42px;
+    border-radius:50%;border:1px solid rgba(184,134,11,.6);background:rgba(255,255,255,.85);
+    display:none;align-items:center;justify-content:center;font-size:5.4vw;cursor:pointer;
+    box-shadow:0 4px 14px rgba(74,55,40,.15);
+  }
+  #music.on .spin{animation:rot 3s linear infinite}
+  @keyframes rot{to{transform:rotate(360deg)}}
+  #toast{
+    position:fixed;left:50%;top:42%;transform:translate(-50%,-50%);z-index:90;
+    background:rgba(40,28,16,.85);color:#fff;font-size:3.6vw;letter-spacing:.15em;
+    padding:2vh 6vw;border-radius:8px;display:none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== 封面 ====== -->
+<div class="cover" id="cover">
+  <div class="xi">囍</div>
+  <div class="cn" id="cNames">新郎 &amp; 新娘</div>
+  <div class="and">WE ARE GETTING MARRIED</div>
+  <div class="date" id="cDate">2026.10.03</div>
+  <button class="openbtn" id="openBtn">开启邀请</button>
+  <div class="tip">❀ 轻触开启 ❀</div>
+</div>
+<div class="deco petal1">🌺</div>
+<div class="deco petal2">🌸</div>
+
+<!-- ====== 正文 ====== -->
+<main>
+  <!-- 邀请语 -->
+  <section id="invite">
+    <div class="kicker fade">WEDDING INVITATION</div>
+    <h2 class="fade">我们结婚啦</h2>
+    <div class="line fade"></div>
+    <p class="fade" id="inviteTxt">
+      谨定于公历 2026 年 10 月 3 日<br>
+      我们将举行结婚典礼<br>
+      执子之手，与子偕老<br>
+      诚邀您莅临，共证幸福
+    </p>
+    <div class="who fade" id="inviteNames">—— 新郎 &amp; 新娘 ——</div>
+  </section>
+
+  <!-- 倒计时 -->
+  <section id="count">
+    <div class="kicker fade">COUNTDOWN</div>
+    <div class="line fade"></div>
+    <div class="num fade" id="days">--</div>
+    <div class="unit fade">距离婚礼还有 · 天</div>
+    <div class="sub fade" id="countDate">2026 年 10 月 3 日</div>
+  </section>
+
+  <!-- 照片 -->
+  <section id="photos">
+    <div class="kicker fade">OUR MOMENT</div>
+    <h2 class="fade">我们的时光</h2>
+    <div class="line fade"></div>
+    <div class="card fade" id="card"><div class="ph"><span class="ic">📷</span>照片待放</div></div>
+    <div class="dots fade" id="dots"></div>
+    <div class="hint fade">左右滑动 · 查看照片</div>
+  </section>
+
+  <!-- 婚礼信息 -->
+  <section id="info">
+    <div class="kicker fade">WEDDING DETAILS</div>
+    <div class="infocard fade">
+      <div class="row">
+        <div class="lbl">典礼时间</div>
+        <div class="val" id="infoDate">2026 年 10 月 3 日</div>
+      </div>
+      <div class="row">
+        <div class="lbl">典礼地点</div>
+        <div class="val venue" id="infoVenue">江西老宅</div>
+        <div class="val" id="infoAddr" style="font-size:3vw;color:#9a7b5f;margin-top:1vh"></div>
+      </div>
+      <button class="btn" id="copyAddr">复制地址</button>
+    </div>
+  </section>
+
+  <!-- 结尾 -->
+  <section id="end">
+    <div class="kicker fade">THANK YOU</div>
+    <div class="line fade"></div>
+    <p class="thanks fade">
+      感谢您见证我们的爱情<br>
+      您的到来，是给我们最好的礼物<br><br>
+      喜宴薄酒，敬候光临
+    </p>
+    <div class="sign fade" id="endNames">新郎 &amp; 新娘 敬邀</div>
+  </section>
+</main>
+
+<!-- 音乐开关 -->
+<div id="music" title="音乐开关">🎵</div>
+<div id="toast"></div>
+
+<audio id="bgm" loop preload="none" src="assets/music.mp3"></audio>
+
+<script>
+/* ========== 配置区：改这里即可 ========== */
+var CONFIG = {
+  groom : '新郎',                    /* 新郎称呼 */
+  bride : '新娘',                    /* 新娘称呼 */
+  date  : '2026/10/03 18:00',        /* 婚礼时间(用于倒计时) */
+  dateTxt: '2026 年 10 月 3 日',     /* 显示文案 */
+  venue : '江西老宅',                /* 场地名 */
+  addr  : '',                        /* 详细地址(可选, 复制按钮用) */
+  invite: '谨定于公历 2026 年 10 月 3 日<br>我们将举行结婚典礼<br>执子之手，与子偕老<br>诚邀您莅临，共证幸福',
+  photos: ['assets/photos/1.jpg','assets/photos/2.jpg','assets/photos/3.jpg','assets/photos/4.jpg']
+};
+/* ================================== */
+
+var NAMES = CONFIG.groom + ' &amp; ' + CONFIG.bride;
+
+/* 防微信字体放大 */
+(function(){
+  function set(){ try{ WeixinJSBridge.invoke('setFontSizeCallback',{fontSize:0}); WeixinJSBridge.on('menu:setfont',function(){WeixinJSBridge.invoke('setFontSizeCallback',{fontSize:0})}); }catch(e){} }
+  if(typeof WeixinJSBridge!=='undefined'&&WeixinJSBridge.invoke){set()}
+  else if(document.addEventListener){document.addEventListener('WeixinJSBridgeReady',set,false)}
+})();
+
+document.getElementById('cNames').innerHTML    = NAMES;
+document.getElementById('inviteNames').innerHTML = '—— ' + NAMES + ' ——';
+document.getElementById('endNames').innerHTML  = NAMES + ' 敬邀';
+document.getElementById('inviteTxt').innerHTML = CONFIG.invite;
+document.getElementById('infoDate').textContent = CONFIG.dateTxt;
+document.getElementById('infoVenue').textContent = CONFIG.venue;
+document.getElementById('countDate').textContent = CONFIG.dateTxt;
+if(CONFIG.addr){ document.getElementById('infoAddr').textContent = CONFIG.addr; }
+
+/* ---- 封面点开 + 播音乐 (微信需用户手势才能出声) ---- */
+var bgm = document.getElementById('bgm'), musicBtn = document.getElementById('music');
+var opened = false;
+document.getElementById('openBtn').addEventListener('click', function(){
+  if(opened) return; opened = true;
+  document.getElementById('cover').classList.add('hide');
+  document.body.style.overflow = 'auto';
+  bgm.load(); bgm.play().then(function(){
+    musicBtn.style.display='flex'; musicBtn.classList.add('on');
+  }).catch(function(){ /* 无音乐文件或受限则静默 */ });
+  setTimeout(function(){ document.getElementById('invite').classList.add('in'); }, 300);
+});
+musicBtn.addEventListener('click', function(){
+  if(bgm.paused){ bgm.play(); musicBtn.classList.add('on'); }
+  else{ bgm.pause(); musicBtn.classList.remove('on'); }
+});
+
+/* ---- 滚动渐显 ---- */
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.18});
+document.querySelectorAll('.fade').forEach(function(el){ io.observe(el); });
+
+/* ---- 倒计时 ---- */
+function tick(){
+  var target = new Date(CONFIG.date).getTime();
+  var d = Math.ceil((target - Date.now())/86400000);
+  document.getElementById('days').textContent = d>0 ? d : (d===0?0:'--');
+}
+tick(); setInterval(tick, 60000);
+
+/* ---- 照片轮播 ---- */
+var photos = CONFIG.photos, idx = 0;
+var card = document.getElementById('card'), dots = document.getElementById('dots');
+function build(){
+  var imgs = photos.map(function(p){
+    var im = new Image();
+    im.src = p;
+    im.onload = function(){ if(idx===im._i) show(im, idx); };
+    im._i = photos.indexOf(p);
+    return im;
+  });
+  dots.innerHTML = '';
+  photos.forEach(function(_,i){ var d=document.createElement('i'); d.onclick=function(){go(i)}; dots.appendChild(d); });
+}
+function show(im,i){
+  card.innerHTML=''; card.appendChild(im.cloneNode());
+  var ds=dots.children; for(var k=0;k<ds.length;k++) ds[k].className = k===i?'on':'';
+}
+function go(i){ idx=(i+photos.length)%photos.length;
+  var im=new Image(); im.src=photos[idx];
+  im.onload=function(){ show(im,idx); };
+  im.onerror=function(){ card.innerHTML='<div class="ph"><span class="ic">📷</span>照片待放</div>'; var ds=dots.children; for(var k=0;k<ds.length;k++) ds[k].className=k===idx?'on':''; };
+}
+var touchX=null;
+card.addEventListener('touchstart',function(e){touchX=e.touches[0].clientX});
+card.addEventListener('touchend',function(e){
+  if(touchX===null)return; var dx=e.changedTouches[0].clientX-touchX;
+  if(Math.abs(dx)>40){ dx<0?go(idx+1):go(idx-1); } touchX=null;
+});
+build(); go(0);
+
+/* ---- 复制地址 ---- */
+document.getElementById('copyAddr').addEventListener('click', function(){
+  var txt = CONFIG.venue + (CONFIG.addr?' '+CONFIG.addr:'');
+  var toast = document.getElementById('toast');
+  function done(ok){ toast.textContent = ok ? '已复制，去地图App粘贴即可导航' : '复制失败，请手动搜索：' + txt; toast.style.display='block'; setTimeout(function(){toast.style.display='none'},2200); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){done(true)},function(){done(false)}); }
+  else {
+    var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(true); }catch(e){ done(false); } document.body.removeChild(ta);
+  }
+});
+</script>
+</body>
+</html>
