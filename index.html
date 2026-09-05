@@ -64,6 +64,7 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 @keyframes qFadeInLeft { from{opacity:0;transform:translateX(-360px)} to{opacity:1;transform:none} }
 @keyframes qFadeInRight{ from{opacity:0;transform:translateX(360px)} to{opacity:1;transform:none} }
 @keyframes qExpand   { from{opacity:0;transform:scaleX(.04)} to{opacity:1;transform:none} }
+@keyframes qPop      { from{opacity:0;transform:scale(.2)} to{opacity:1;transform:none} }
 html.js .q{opacity:0;will-change:opacity,transform}
 .q.in{animation:var(--an,qFadeIn) 5s cubic-bezier(.25,.6,.3,1) forwards;animation-delay:var(--dl,0s)}
 /* ============ 照片真遮罩(原卡 SVG: 拱门/圆拱, 非直角框) ============ */
@@ -123,7 +124,7 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <div class="t fS" id="coverDate" style="left:398px;top:310px;width:276px;text-align:right;font-size:32px;line-height:1.2;color:#FFD2B7"></div>
 
 <!-- [71] 皇冠 -->
-<img class="abs" src="assets/art/art71.svg" style="left:319px;top:199px;width:88px;height:84px">
+<img class="abs q" src="assets/art/art71.svg" data-ani="qPop" data-dly="1.2s" style="left:319px;top:199px;width:88px;height:84px">
 
 <!-- [12][13][14] 新人姓名 + & -->
 <div class="t fS" id="groomName" style="left:29px;top:1149px;width:286px;height:72px;text-align:right;font-size:36px;line-height:72px;color:#991700"></div>
