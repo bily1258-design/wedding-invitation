@@ -474,6 +474,24 @@ mBtn.addEventListener('click', function(){
   if (typeof WeixinJSBridge !== 'undefined') fix();
   document.addEventListener('WeixinJSBridgeReady', fix, false);
 })();
+
+/* 打开自动慢速上滑: 1.5s后开始, 90px/s, 触屏/滚轮即停, 到底自动停 */
+(function(){
+  var stopped=false, timer=null;
+  function halt(){ stopped=true; if(timer){clearInterval(timer); timer=null;} }
+  document.addEventListener('touchstart',halt,{passive:true});
+  document.addEventListener('wheel',halt,{passive:true});
+  document.addEventListener('touchmove',halt,{passive:true});
+  setTimeout(function(){
+    if(stopped) return;
+    timer=setInterval(function(){
+      if(stopped||document.hidden) return;
+      var max=document.body.scrollHeight-innerHeight;
+      if(scrollY>=max-4){ halt(); return; }
+      scrollBy(0,2);
+    },22);
+  },1500);
+})();
 </script>
 </body>
 </html>
