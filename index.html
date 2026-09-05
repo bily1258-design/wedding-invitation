@@ -71,6 +71,33 @@ html.js .q{opacity:0;will-change:opacity,transform}
 .mk8{-webkit-mask-image:url(assets/masks/m8.svg);mask-image:url(assets/masks/m8.svg);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 .mk68{-webkit-mask-image:url(assets/masks/m68.svg);mask-image:url(assets/masks/m68.svg);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 /* 首页底部小字(非原版元素, 便于沟通) */
+/* ===== 原版字体子集接线(2026-09-05) ===== */
+@font-face{font-family:'FZS3K-V7DVRE';src:url(assets/fonts/subs/sbft_FZS3K--GBK1-0_V7DVRE6bwHn1YcvUG4zAGQ.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZS3K-HT8PjR';src:url(assets/fonts/subs/sbft_FZS3K--GBK1-0_HT8PjRSi5rjoY9yw58zZbQ.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZBIAOYSK-LBk8';src:url(assets/fonts/subs/sbft_FZBIAOYSK--GBK1-0_LBk8IssyseAHio0ouQNtaQ.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZS3K-WGltQ';src:url(assets/fonts/subs/sbft_FZS3K--GBK1-0_W_GltQ_n1d-SQ7zBF6_54g.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZBYKSK-8nHG';src:url(assets/fonts/subs/sbft_FZBYKSK_8nHGpuLpHN8lzDVeLSf63A.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZLTXHK-CZ7Z';src:url(assets/fonts/subs/sbft_FZLTXHK--GBK1-0_CZ7ZjlKkVMcj4YFKsknl2w.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZLTHJW-K4W';src:url(assets/fonts/subs/sbft_FZLTHJW--GB1-0_K4W-OWxaJ-NuNPn9RU8Piw.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZBIAOYSK-d6';src:url(assets/fonts/subs/sbft_FZBIAOYSK--GBK1-0_d6-jzapunYJE--6RM08hGw.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZS3K-BTcox';src:url(assets/fonts/subs/sbft_FZS3K--GBK1-0_BTcox_hOOaIT55NKnNnYhQ.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZS3K-QU5i';src:url(assets/fonts/subs/sbft_FZS3K--GBK1-0_QU5iARNM98N3JgFQ4FWvRw.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FELIXTI-8x83';src:url(assets/fonts/subs/sbft_FELIXTI_8x83k-z7ITuH7yDmGlc97w.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZBYKSK-lE3L';src:url(assets/fonts/subs/sbft_FZBYKSK_lE3LB89duHoiOqF5MV_LCA.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'FZBYKSK-GnVZ';src:url(assets/fonts/subs/sbft_FZBYKSK_GnVZe70D3muIIf9IyDhDmA.ttf) format('truetype');font-display:swap}
+#poem1{font-family:'FZS3K-V7DVRE','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+#inviteTxt{font-family:'FZS3K-HT8PjR','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+#pVow1{font-family:'FZBIAOYSK-LBk8','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+#pVow2{font-family:'FZS3K-WGltQ','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+#pVow3{font-family:'FZBYKSK-8nHG','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+#pVow4{font-family:'FZLTXHK-CZ7Z','PingFang SC','Hiragino Sans GB','Noto Sans CJK SC','Microsoft YaHei',sans-serif}
+[data-ff=LY]{font-family:'FZLTHJW-K4W','PingFang SC','Hiragino Sans GB','Noto Sans CJK SC','Microsoft YaHei',sans-serif}
+[data-ff=WED]{font-family:'FZBIAOYSK-d6','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+[data-ff=HOME]{font-family:'FZS3K-BTcox','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+[data-ff=JX]{font-family:'FZS3K-QU5i','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+[data-ff=STD]{font-family:'FELIXTI-8x83','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+#gNum{font-family:'FZBYKSK-lE3L','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+#gSubmit{font-family:'FZBYKSK-GnVZ','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
 </style>
 </head>
 <body>
@@ -119,8 +146,8 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <!-- [16] 卡顶横照 -->
 <div class="abs ph q" data-ph="2" data-ani="qFadeInUp" style="left:89.5px;top:2131.4px;width:581px;height:395.6px"></div>
 <!-- [17][18] 标题行 -->
-<div class="t fH" style="left:75px;top:2543.1px;width:278px;font-size:24px;line-height:1.2;color:#C10909;letter-spacing:6px;font-weight:600">LOVE&nbsp;YOU</div>
-<div class="t fS" style="left:351px;top:2540.2px;width:342px;text-align:center;font-size:24px;line-height:1.2;color:#C10909;letter-spacing:20px">我们要结婚啦</div>
+<div class="t fH" data-ff="LY" style="left:75px;top:2543.1px;width:278px;font-size:24px;line-height:1.2;color:#C10909;letter-spacing:6px;font-weight:600">LOVE&nbsp;YOU</div>
+<div class="t fS" data-ff="WED" style="left:351px;top:2540.2px;width:342px;text-align:center;font-size:24px;line-height:1.2;color:#C10909;letter-spacing:20px">我们要结婚啦</div>
 <!-- [19] 月历(JS生成) -->
 <div id="calWrap" class="abs" style="left:89px;top:2606px;width:582px;height:540px"></div>
 
@@ -163,7 +190,7 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <div class="abs ph" data-ph="11" style="left:494.5px;top:8746px;width:250px;height:216px"></div>
 
 <!-- [42][43] 一屋两人 -->
-<div class="t fS q" data-ani="qFadeInUp" style="left:51.5px;top:9100px;width:650px;text-align:center;font-size:34px;line-height:2.5;color:#991700;letter-spacing:7px;white-space:nowrap">一/屋/两/人&nbsp;&nbsp;三/餐/四/季</div>
+<div class="t fS q" data-ff="HOME" data-ani="qFadeInUp" style="left:51.5px;top:9100px;width:650px;text-align:center;font-size:34px;line-height:2.5;color:#991700;letter-spacing:7px;white-space:nowrap">一/屋/两/人&nbsp;&nbsp;三/餐/四/季</div>
 <div class="t fS q" data-ani="qFadeInUp" style="left:48.5px;top:9216px;width:650px;text-align:center;font-size:28px;line-height:1.9;color:#991700" id="pVow2"></div>
 <img class="abs" src="assets/art/art41.svg" style="left:516.5px;top:9123px;width:72px;height:71.6px;opacity:.5">
 
@@ -192,8 +219,8 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <div id="cd2" style="position:absolute;left:375px;top:13292.1px;transform:translateX(-50%);display:flex;gap:7px"></div>
 
 <!-- ============ 邀请/地图/回执卡 ============ -->
-<div class="t fG" style="left:115px;top:13483.7px;width:520px;text-align:center;font-size:24px;line-height:1.2;color:#991700;letter-spacing:15px;text-transform:uppercase">save the date</div>
-<div class="t fS" style="left:143.1px;top:13537.4px;width:463.8px;text-align:center;font-size:28px;line-height:1.2;color:#991700;letter-spacing:8px">敬备喜酌&nbsp;&nbsp;恭候莅临</div>
+<div class="t fG" data-ff="STD" style="left:115px;top:13483.7px;width:520px;text-align:center;font-size:24px;line-height:1.2;color:#991700;letter-spacing:15px;text-transform:uppercase">save the date</div>
+<div class="t fS" data-ff="JX" style="left:143.1px;top:13537.4px;width:463.8px;text-align:center;font-size:28px;line-height:1.2;color:#991700;letter-spacing:8px">敬备喜酌&nbsp;&nbsp;恭候莅临</div>
 
 <!-- [61] 地图占位(原卡为杭州示例地图, 不复用; 点按开导航) -->
 <div class="mapbox" id="mapBox" style="left:198px;top:13695.4px;width:354px;height:232px">
