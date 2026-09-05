@@ -57,6 +57,19 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 .mapbox .mpill{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:#C10909;color:#fff;
   font-family:"Songti SC",serif;font-size:20px;letter-spacing:2px;padding:6px 26px;border-radius:30px;white-space:nowrap}
 /* 红包尾页 */
+/* ============ 原版滚动入场动画 (qt-* 族, 2s, 滚动触发一次) ============ */
+@keyframes qFadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes qFadeInUp   { from{opacity:0;transform:translateY(60px)} to{opacity:1;transform:none} }
+@keyframes qFadeInDown { from{opacity:0;transform:translateY(-60px)} to{opacity:1;transform:none} }
+@keyframes qFadeInLeft { from{opacity:0;transform:translateX(-60px)} to{opacity:1;transform:none} }
+@keyframes qFadeInRight{ from{opacity:0;transform:translateX(60px)} to{opacity:1;transform:none} }
+@keyframes qExpand   { from{opacity:0;transform:scaleX(.35)} to{opacity:1;transform:none} }
+html.js .q{opacity:0;will-change:opacity,transform}
+.q.in{animation:var(--an,qFadeIn) 2s cubic-bezier(.25,.6,.3,1) forwards;animation-delay:var(--dl,0s)}
+/* ============ 照片真遮罩(原卡 SVG: 拱门/圆拱, 非直角框) ============ */
+.mk6{-webkit-mask-image:url(assets/masks/m6.svg);mask-image:url(assets/masks/m6.svg);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.mk8{-webkit-mask-image:url(assets/masks/m8.svg);mask-image:url(assets/masks/m8.svg);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.mk68{-webkit-mask-image:url(assets/masks/m68.svg);mask-image:url(assets/masks/m68.svg);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 /* 首页底部小字(非原版元素, 便于沟通) */
 </style>
 </head>
@@ -70,10 +83,10 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 <!-- [3][4][5] 封面顶部装饰 / 拱饰 / 主照边框(桃色) -->
 <img class="abs" src="assets/art/art3.svg" style="left:148px;top:99px;width:426px;height:155.6px;opacity:.8">
 <img class="abs" src="assets/art/art4.svg" style="left:17.5px;top:38px;width:715px;height:317px">
-<img class="abs" src="assets/art/art5.svg" style="left:164.5px;top:398px;width:478px;height:708.1px">
+<img class="abs q" src="assets/art/art5.svg" data-ani="qFadeIn" data-dly="1s" style="left:164.5px;top:398px;width:478px;height:708.1px">
 
 <!-- [6] 封面主照 -->
-<div class="abs ph" data-ph="0" style="left:107.5px;top:377px;width:506px;height:701.7px"></div>
+<div class="abs ph mk6 q" data-ph="0" data-ani="qFadeInDown" style="left:107.5px;top:377px;width:506px;height:701.7px"></div>
 
 <!-- [7] 顶部正红花 -->
 <img class="abs" src="assets/art/art7.svg" style="left:299px;top:-73px;width:152px;height:151.2px">
@@ -92,9 +105,9 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 
 <!-- ============ 誓言区 ============ -->
 <!-- [11] 誓言长诗(左) -->
-<div class="t fS" id="poem1" style="left:6px;top:1400.9px;width:516px;font-size:26px;line-height:2.3;color:#991700;letter-spacing:4px"></div>
+<div class="t fS q" id="poem1" data-ani="qFadeInUp" style="left:6px;top:1400.9px;width:516px;font-size:26px;line-height:2.3;color:#991700;letter-spacing:4px"></div>
 <!-- [8] 右侧拍立得照 -->
-<div class="abs ph" data-ph="1" style="left:506px;top:1508px;width:219px;height:364.3px"></div>
+<div class="abs ph mk8 q" data-ph="1" data-ani="qFadeInRight" style="left:506px;top:1508px;width:219px;height:364.3px"></div>
 <!-- [9] 右上暗红花枝 -->
 <img class="abs" src="assets/art/art9.svg" style="left:589px;top:1346px;width:204px;height:199px">
 <!-- [10] 英文花体 -->
@@ -104,7 +117,7 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 <!-- [15] 柔色大卡(圆角) -->
 <div class="cardsoft" style="left:89px;top:2184.8px;width:582px;height:986px"></div>
 <!-- [16] 卡顶横照 -->
-<div class="abs ph" data-ph="2" style="left:89.5px;top:2131.4px;width:581px;height:395.6px"></div>
+<div class="abs ph q" data-ph="2" data-ani="qFadeInUp" style="left:89.5px;top:2131.4px;width:581px;height:395.6px"></div>
 <!-- [17][18] 标题行 -->
 <div class="t fH" style="left:75px;top:2543.1px;width:278px;font-size:24px;line-height:1.2;color:#C10909;letter-spacing:6px;font-weight:600">LOVE&nbsp;YOU</div>
 <div class="t fS" style="left:351px;top:2540.2px;width:342px;text-align:center;font-size:24px;line-height:1.2;color:#C10909;letter-spacing:20px">我们要结婚啦</div>
@@ -112,7 +125,7 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 <div id="calWrap" class="abs" style="left:89px;top:2606px;width:582px;height:540px"></div>
 
 <!-- [20] 邀请诗 -->
-<div class="t fS" style="left:160px;top:3714.4px;width:430px;text-align:center;font-size:26px;line-height:2.3;color:#991700;letter-spacing:2px" id="inviteTxt"></div>
+<div class="t fS q" data-ani="qFadeInUp" style="left:160px;top:3714.4px;width:430px;text-align:center;font-size:26px;line-height:2.3;color:#991700;letter-spacing:2px" id="inviteTxt"></div>
 
 <!-- ============ 婚宴信息行 + 倒计时 ============ -->
 <div class="t fS" id="addrCellL" style="left:29px;top:3280px;width:288px;height:134px;text-align:right;font-size:26px;line-height:1.6;color:#991700"></div>
@@ -121,26 +134,26 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 <div id="cd1" style="position:absolute;left:375px;top:3440.4px;transform:translateX(-50%);display:flex;gap:10px"></div>
 
 <!-- ============ 照片墙 ============ -->
-<div class="abs ph" data-ph="3" style="left:0;top:4142.2px;width:750px;height:500px"></div>
-<div class="abs ph" data-ph="4" style="left:396px;top:4720.2px;width:322px;height:473.5px"></div>
-<div class="abs ph" data-ph="5" style="left:44px;top:4764.2px;width:326px;height:340.6px"></div>
+<div class="abs ph q" data-ph="3" data-ani="qFadeInUp" style="left:0;top:4142.2px;width:750px;height:500px"></div>
+<div class="abs ph q" data-ph="4" data-ani="qFadeInUp" style="left:396px;top:4720.2px;width:322px;height:473.5px"></div>
+<div class="abs ph q" data-ph="5" data-ani="qFadeInUp" style="left:44px;top:4764.2px;width:326px;height:340.6px"></div>
 <img class="abs" src="assets/art/art28.svg" style="left:68px;top:5213.1px;width:656px;height:70px">
 <img class="abs" src="assets/art/art29.svg" style="left:-63px;top:5175px;width:124px;height:123.3px">
-<div class="abs ph" data-ph="6" style="left:45px;top:5447px;width:660px;height:944.2px"></div>
+<div class="abs ph q" data-ph="6" data-ani="qFadeInUp" style="left:45px;top:5447px;width:660px;height:944.2px"></div>
 
 <!-- [64] 想带你去… -->
-<div class="t fS" style="left:103px;top:6584.5px;width:362px;font-size:26px;line-height:2.2;color:#991700;letter-spacing:3px" id="pVow1"></div>
+<div class="t fS q" data-ani="qFadeInLeft" style="left:103px;top:6584.5px;width:362px;font-size:26px;line-height:2.2;color:#991700;letter-spacing:3px" id="pVow1"></div>
 
 <!-- [40] 右上暗红花枝 -->
 <img class="abs" src="assets/art/art9.svg" style="left:635.5px;top:7024px;width:204px;height:199px">
 
 <!-- ============ 新娘区块(左照右名) ============ -->
-<div class="abs ph" data-ph="7" style="left:0;top:7250px;width:424px;height:486.9px"></div>
+<div class="abs ph q" data-ph="7" data-ani="qFadeInUp" style="left:0;top:7250px;width:424px;height:486.9px"></div>
 <div class="t fS" id="brideBig" style="left:457.5px;top:7641px;width:246px;font-size:30px;line-height:1.54;color:#991700"></div>
 <img class="abs" src="assets/art/art38.svg" style="left:471.5px;top:7581px;width:198px;height:31.9px">
 
 <!-- ============ 新郎区块(右照左名) ============ -->
-<div class="abs ph" data-ph="8" style="left:319.5px;top:8054px;width:369px;height:522px"></div>
+<div class="abs ph q" data-ph="8" data-ani="qFadeInUp" style="left:319.5px;top:8054px;width:369px;height:522px"></div>
 <div class="t fS" id="groomBig" style="left:92.5px;top:8464px;width:198px;text-align:right;font-size:30px;line-height:1.54;color:#991700"></div>
 <img class="abs" src="assets/art/art39.svg" style="left:39.5px;top:8401px;width:238px;height:31px">
 
@@ -150,30 +163,30 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 <div class="abs ph" data-ph="11" style="left:494.5px;top:8746px;width:250px;height:216px"></div>
 
 <!-- [42][43] 一屋两人 -->
-<div class="t fS" style="left:51.5px;top:9100px;width:650px;text-align:center;font-size:34px;line-height:2.5;color:#991700;letter-spacing:7px;white-space:nowrap">一/屋/两/人&nbsp;&nbsp;三/餐/四/季</div>
-<div class="t fS" style="left:48.5px;top:9216px;width:650px;text-align:center;font-size:28px;line-height:1.9;color:#991700" id="pVow2"></div>
+<div class="t fS q" data-ani="qFadeInUp" style="left:51.5px;top:9100px;width:650px;text-align:center;font-size:34px;line-height:2.5;color:#991700;letter-spacing:7px;white-space:nowrap">一/屋/两/人&nbsp;&nbsp;三/餐/四/季</div>
+<div class="t fS q" data-ani="qFadeInUp" style="left:48.5px;top:9216px;width:650px;text-align:center;font-size:28px;line-height:1.9;color:#991700" id="pVow2"></div>
 <img class="abs" src="assets/art/art41.svg" style="left:516.5px;top:9123px;width:72px;height:71.6px;opacity:.5">
 
 <!-- [44][49] 双横图 + [45] 分隔 -->
-<div class="abs ph" data-ph="12" style="left:69.5px;top:9471px;width:590px;height:413px"></div>
-<div class="abs ph" data-ph="13" style="left:69.5px;top:9915px;width:590px;height:413px"></div>
+<div class="abs ph q" data-ph="12" data-ani="qFadeInDown" style="left:69.5px;top:9471px;width:590px;height:413px"></div>
+<div class="abs ph q" data-ph="13" data-ani="qFadeInUp" style="left:69.5px;top:9915px;width:590px;height:413px"></div>
 <img class="abs" src="assets/art/art45.svg" style="left:172.5px;top:10439.3px;width:370px;height:32.1px">
-<div class="abs ph" data-ph="14" style="left:42.5px;top:10585.5px;width:225px;height:319px"></div>
-<div class="abs ph" data-ph="15" style="left:272.5px;top:10585.5px;width:225px;height:319px"></div>
-<div class="abs ph" data-ph="16" style="left:501.5px;top:10585.5px;width:203px;height:319px"></div>
+<div class="abs ph q" data-ph="14" data-ani="qFadeInDown" style="left:42.5px;top:10585.5px;width:225px;height:319px"></div>
+<div class="abs ph q" data-ph="15" data-ani="qFadeInRight" style="left:272.5px;top:10585.5px;width:225px;height:319px"></div>
+<div class="abs ph q" data-ph="16" data-ani="qFadeInUp" style="left:501.5px;top:10585.5px;width:203px;height:319px"></div>
 
 <!-- [50][51] 米白柔角装饰(右上/左下) -->
 <div class="abs" style="left:618.5px;top:11032.9px;width:252px;height:168.6px;background:#E0D1C3;border-radius:44px"></div>
 <div class="abs" style="left:-43.5px;top:11412.9px;width:464px;height:330.6px;background:#E0D1C3;border-radius:48px;opacity:.52"></div>
 <!-- [52] 横图 -->
-<div class="abs ph" data-ph="17" style="left:62.5px;top:11097.3px;width:622px;height:453.7px"></div>
+<div class="abs ph q" data-ph="17" data-ani="qExpand" style="left:62.5px;top:11097.3px;width:622px;height:453.7px"></div>
 
 <!-- [65][66][67][68] 世界上最美的一刻 + 相框 -->
-<div class="t fS" style="left:25px;top:11794.2px;width:544px;font-size:28px;line-height:2.3;color:#991700;letter-spacing:4px" id="pVow3"></div>
+<div class="t fS q" data-ani="qFadeInRight" style="left:25px;top:11794.2px;width:544px;font-size:28px;line-height:2.3;color:#991700;letter-spacing:4px" id="pVow3"></div>
 <img class="abs" src="assets/art/art70.svg" style="left:607.5px;top:11760px;width:204px;height:199px">
-<img class="abs" src="assets/art/art66.svg" style="left:86px;top:12086.2px;width:478px;height:55.9px">
-<img class="abs" src="assets/art/art67.svg" style="left:57px;top:12317.5px;width:615px;height:276px">
-<div class="abs ph" data-ph="18" style="left:94px;top:12360.5px;width:554px;height:832px"></div>
+<img class="abs q" src="assets/art/art66.svg" data-ani="qFadeInRight" style="left:86px;top:12086.2px;width:478px;height:55.9px">
+<img class="abs q" src="assets/art/art67.svg" data-ani="qFadeInDown" style="left:57px;top:12317.5px;width:615px;height:276px">
+<div class="abs ph mk68 q" data-ph="18" data-ani="qExpand" style="left:94px;top:12360.5px;width:554px;height:832px"></div>
 
 <!-- [53] 小倒计时 -->
 <div id="cd2" style="position:absolute;left:375px;top:13292.1px;transform:translateX(-50%);display:flex;gap:7px"></div>
@@ -202,7 +215,7 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 <img class="abs" src="assets/art/art54.svg" style="left:172px;top:14556.4px;width:406px;height:86.1px;opacity:.59">
 
 <!-- [69] 结尾长诗 -->
-<div class="t fH" style="left:50px;top:14746.8px;width:650px;text-align:center;font-size:26px;line-height:2.2;color:#991700;font-weight:300" id="pVow4"></div>
+<div class="t fH q" data-ani="qFadeInUp" style="left:50px;top:14746.8px;width:650px;text-align:center;font-size:26px;line-height:2.2;color:#991700;font-weight:300" id="pVow4"></div>
 
 <!-- 原版[63]红包尾页(送红包/礼物)已按用户要求移除, 仅留署名收尾 -->
 <div class="t fS" style="left:0;top:15355px;width:750px;text-align:center;font-size:18px;letter-spacing:6px;color:rgba(153,23,0,.55)" id="footerLine"></div>
@@ -396,6 +409,24 @@ mBtn.addEventListener('click', function(){
   if (bgm.paused) { bgm.play(); mBtn.classList.add('on'); }
   else { bgm.pause(); mBtn.classList.remove('on'); }
 });
+
+/* 原版滚动入场动画驱动: 进入视口触发一次 */
+(function(){
+  var de = document.documentElement;
+  de.classList.add('js');
+  var els = document.querySelectorAll('.q');
+  function fire(el, dly){
+    el.classList.add('in');
+    el.style.setProperty('--an', el.getAttribute('data-ani') || 'qFadeIn');
+    el.style.setProperty('--dl', dly || el.getAttribute('data-dly') || '0s');
+  }
+  if(!('IntersectionObserver' in window)){ for(var k=0;k<els.length;k++) fire(els[k],'0s'); return; }
+  var io = new IntersectionObserver(function(es){
+    for(var i=0;i<es.length;i++) if(es[i].isIntersecting){ fire(es[i].target); io.unobserve(es[i].target); }
+  }, {rootMargin:'0px 0px -6% 0px', threshold:0.04});
+  for(var j=0;j<els.length;j++) io.observe(els[j]);
+  setTimeout(function(){ for(var m=0;m<els.length;m++) if(!els[m].classList.contains('in')) fire(els[m],'0s'); }, 15000);
+})();
 
 /* 防微信字体放大 */
 (function(){
