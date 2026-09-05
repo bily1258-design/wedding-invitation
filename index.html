@@ -13,14 +13,14 @@
     --rose:#d98ba0;      /* 玫粉 主点缀 */
     --rose-d:#c96e88;
     --gold:#c9a15a;      /* 香槟金 */
-    --card:#ffffff;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{width:100%;background:var(--bg)}
   body{
     font-family:-apple-system,"PingFang SC","Noto Sans SC","Noto Serif SC","STKaiti","KaiTi",serif;
-    color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;
+    color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased;
   }
+  body.unlocked{overflow-y:auto;overflow-x:hidden}
   /* 波点蕾丝纹理(全页) */
   body::before{
     content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -62,104 +62,96 @@
   .cover .openbtn:active{transform:scale(.96)}
   .cover .tip{position:absolute;bottom:7vh;font-size:3vw;color:#c08b99;letter-spacing:.5em;text-indent:.5em;animation:bounce 1.8s ease-in-out infinite}
   @keyframes bounce{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-7px);opacity:.55}}
-  /* 封面四角小花枝 */
   .crose{position:absolute;width:26vw;height:26vw;opacity:.9;pointer-events:none}
-  .crose.tl{top:0;left:0;transform:rotate(0)}
+  .crose.tl{top:0;left:0}
   .crose.br{bottom:0;right:0;transform:rotate(180deg)}
 
   /* ============ 正文长卷 ============ */
-  main{position:relative;z-index:5;padding:0 0 12vh}
-  section{
-    min-height:96vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:11vh 8vw;position:relative;text-align:center;
-  }
-  .panel{
-    width:86vw;background:var(--card);border-radius:18px;
-    padding:7vh 7vw;box-shadow:0 12px 30px rgba(201,110,136,.13);
-    border:1px solid rgba(217,139,160,.22);
-  }
+  main{position:relative;z-index:5;padding:0 0 10vh}
+  section{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9vh 8vw;position:relative;text-align:center}
   .en{font-size:2.9vw;letter-spacing:.5em;text-indent:.5em;color:var(--rose);font-weight:500}
-  h2{font-size:7.2vw;letter-spacing:.28em;text-indent:.28em;color:var(--ink-d);font-weight:600;margin:2.4vh 0}
+  h2{font-size:7vw;letter-spacing:.28em;text-indent:.28em;color:var(--ink-d);font-weight:600;margin:2.2vh 0}
   .p{font-size:4.3vw;line-height:2.15;letter-spacing:.1em;color:var(--ink)}
   .p .hl{color:var(--rose-d);font-weight:600}
   .p.sm{font-size:3.6vw;color:#a8787f}
   .fade{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
   .fade.in{opacity:1;transform:none}
-  /* 分隔小花(❦) */
   .divider{display:flex;align-items:center;justify-content:center;gap:3vw;margin:1vh 0 0;color:var(--rose)}
   .divider::before,.divider::after{content:"";width:22vw;height:1px;background:linear-gradient(90deg,transparent,rgba(217,139,160,.55))}
   .divider::after{background:linear-gradient(90deg,rgba(217,139,160,.55),transparent)}
   .divider .flower{font-size:5vw;line-height:1}
 
-  /* 邀请语 P3 */
+  /* ===== 照片故事：逐屏浮现(照片↔文字交替) ===== */
+  #moments{padding:0}
+  .mstep{min-height:102vh;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:8vh 8vw}
+  .mverse{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10vh 12vw}
+  .mverse .vbig{font-size:6vw;line-height:2.1;letter-spacing:.2em;color:var(--ink-d);font-weight:500;margin-top:2vh}
+  .mverse .vsub{font-size:3.4vw;line-height:2.4;color:#b48a92;margin-top:3.6vh;letter-spacing:.08em}
+  /* 照片浮框:由小到大(.pop)/ 旋转放大(.spin) */
+  .shotwrap{
+    position:relative;width:min(88vw,49vh);aspect-ratio:4/5;
+    border-radius:16px;overflow:hidden;
+    background:linear-gradient(160deg,#fdf3f6,#f6dde6);
+    border:7px solid #fff;box-shadow:0 16px 40px rgba(201,110,136,.26);
+  }
+  .shotwrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .shotwrap .ph-tip{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#cf9aa8;font-size:3.4vw;letter-spacing:.15em}
+  .shotwrap .ph-tip .ic{font-size:16vw;margin-bottom:2vh}
+  .mreveal{opacity:0;transform:scale(.26);transition:transform 1.15s cubic-bezier(.2,1.32,.4,1),opacity .4s ease}
+  .mreveal.spin{transform:scale(.2) rotate(-16deg)}
+  .mreveal.in{transform:none;opacity:1}
+  .stepno{margin-top:4vh;font-size:3vw;color:#c9a3ab;letter-spacing:.6em;text-indent:.6em}
+  .mstep .stepno{display:block}
+
+  /* 邀请语 */
   #invite .datechip{
     display:inline-flex;flex-direction:column;align-items:center;gap:.6vh;
     background:linear-gradient(160deg,#fff,#fdeef3);
     border:1px solid rgba(217,139,160,.5);border-radius:14px;
-    padding:2.6vh 9vw;margin:4vh 0 1vh;
+    padding:2.4vh 8vw;margin:3vh 0 1vh;
   }
-  #invite .datechip .dy{font-size:6.8vw;font-weight:700;color:var(--rose-d);letter-spacing:.1em}
-  #invite .datechip .dm{font-size:3.2vw;color:#a8787f;letter-spacing:.35em}
+  #invite .datechip .dy{font-size:6.4vw;font-weight:700;color:var(--rose-d);letter-spacing:.1em}
+  #invite .datechip .dm{font-size:3vw;color:#a8787f;letter-spacing:.35em}
 
-  /* 照片 P4 */
-  #photos .strip{display:flex;gap:3vw;overflow-x:auto;margin-top:4vh;padding:1vh 2vw 2vh;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
-  #photos .strip::-webkit-scrollbar{display:none}
-  .phcard{
-    flex:0 0 58vw;scroll-snap-align:center;
-    aspect-ratio:4/5;border-radius:16px;overflow:hidden;
-    background:linear-gradient(160deg,#fdf3f6,#f6dde6);
-    border:6px solid #fff;box-shadow:0 10px 22px rgba(201,110,136,.18);
-    display:flex;align-items:center;justify-content:center;position:relative;
+  /* 倒计时 */
+  #count .num{font-size:16vw;font-weight:800;color:var(--rose-d);line-height:1;font-family:-apple-system,"PingFang SC",sans-serif}
+  #count .num em{font-style:normal;font-size:5vw;margin-right:1.5vw}
+  #count .unit{font-size:3.6vw;letter-spacing:.5em;text-indent:.5em;color:#a8787f;margin-top:1.6vh}
+  #count .sub{font-size:3.1vw;color:#c08b99;margin-top:3vh;letter-spacing:.2em}
+  .panel{
+    width:86vw;background:var(--card,#fff);border-radius:18px;
+    padding:6.5vh 7vw;box-shadow:0 12px 30px rgba(201,110,136,.13);
+    border:1px solid rgba(217,139,160,.22);
   }
-  .phcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .phcard .ph{color:#cf9aa8;font-size:3.6vw;letter-spacing:.15em;text-align:center}
-  .phcard .ph .ic{font-size:15vw;display:block;margin-bottom:1.6vh}
-  .hint{font-size:3vw;color:#c08b99;margin-top:3vh;letter-spacing:.35em;text-indent:.35em}
 
-  /* 宣言 P5 */
-  #vow .vowline{font-size:5.4vw;line-height:1.9;color:var(--ink-d);letter-spacing:.14em;margin:2.5vh 0}
-  #vow .sub{font-size:3.5vw;color:#b48a92;letter-spacing:.12em;line-height:2.2}
-
-  /* 倒计时 P6 */
-  #count .num{font-size:17vw;font-weight:800;color:var(--rose-d);line-height:1;font-family:-apple-system,"PingFang SC",sans-serif}
-  #count .num em{font-style:normal;font-size:5.5vw;margin-right:1.5vw}
-  #count .unit{font-size:3.8vw;letter-spacing:.5em;text-indent:.5em;color:#a8787f;margin-top:1.6vh}
-  #count .sub{font-size:3.2vw;color:#c08b99;margin-top:3.4vh;letter-spacing:.2em}
-
-  /* 日历卡 P7 */
-  #cal{
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-  }
-  .calcard{
+  /* 日历卡 */
+  #cal .calcard{
     width:78vw;background:#fff;border-radius:20px;overflow:hidden;
     box-shadow:0 14px 34px rgba(201,110,136,.16);border:1px solid rgba(217,139,160,.25);
   }
-  .calcard .head{background:linear-gradient(135deg,#eeb2c2,#d98ba0);color:#fff;text-align:center;padding:3vh 0}
-  .calcard .head .y{font-size:3.2vw;letter-spacing:.4em}
-  .calcard .head .m{font-size:5vw;letter-spacing:.3em;margin-top:.6vh;font-weight:600}
-  .calcard .body{display:flex;align-items:center;justify-content:center;gap:6vw;padding:4.5vh 6vw}
-  .calcard .body .day{font-size:13vw;font-weight:800;color:var(--rose-d);line-height:1;font-family:-apple-system,"PingFang SC",sans-serif}
-  .calcard .body .info{text-align:left;font-size:3.6vw;line-height:2.3;color:var(--ink)}
-  .calcard .body .info b{color:var(--rose-d);font-size:4.2vw}
-  .lunar{font-size:3.1vw;color:#a8787f;letter-spacing:.15em;margin-top:1.4vh}
+  #cal .calcard .head{background:linear-gradient(135deg,#eeb2c2,#d98ba0);color:#fff;text-align:center;padding:2.6vh 0}
+  #cal .calcard .head .y{font-size:3vw;letter-spacing:.4em}
+  #cal .calcard .head .m{font-size:4.6vw;letter-spacing:.3em;margin-top:.6vh;font-weight:600}
+  #cal .calcard .body{display:flex;align-items:center;justify-content:center;gap:6vw;padding:4vh 6vw}
+  #cal .calcard .body .day{font-size:12vw;font-weight:800;color:var(--rose-d);line-height:1;font-family:-apple-system,"PingFang SC",sans-serif}
+  #cal .calcard .body .info{text-align:left;font-size:3.4vw;line-height:2.3;color:var(--ink)}
+  #cal .calcard .body .info b{color:var(--rose-d);font-size:4vw}
+  .lunar{font-size:3vw;color:#a8787f;letter-spacing:.15em;margin-top:1.2vh;text-align:center;padding-bottom:2vh}
 
   /* 地址卡 */
-  #map .addrname{font-size:5.8vw;font-weight:600;color:var(--ink-d);letter-spacing:.12em;margin:2.2vh 0 .8vh}
-  #map .addrfull{font-size:3.5vw;color:#a8787f;line-height:1.9;letter-spacing:.1em}
-  .btnrow{display:flex;gap:3vw;justify-content:center;margin-top:4.4vh}
-  .btn{
-    font-family:inherit;font-size:3.4vw;letter-spacing:.2em;
-    border-radius:999px;padding:1.9vh 7vw;cursor:pointer;border:none;
-  }
+  #map .addrname{font-size:5.6vw;font-weight:600;color:var(--ink-d);letter-spacing:.12em;margin:2vh 0 .8vh}
+  #map .addrfull{font-size:3.4vw;color:#a8787f;line-height:1.9;letter-spacing:.1em}
+  .btnrow{display:flex;gap:3vw;justify-content:center;margin-top:4vh}
+  .btn{font-family:inherit;font-size:3.3vw;letter-spacing:.2em;border-radius:999px;padding:1.8vh 6.5vw;cursor:pointer;border:none}
   .btn.primary{color:#fff;background:linear-gradient(135deg,#e8a7b9,var(--rose-d));box-shadow:0 8px 20px rgba(201,110,136,.35)}
   .btn.ghost{color:var(--rose-d);background:#fff;border:1px solid rgba(217,139,160,.6)}
   .btn:active{transform:scale(.96)}
 
   /* 结尾 */
-  #end .thanks{font-size:4.2vw;line-height:2.3;letter-spacing:.12em}
-  #end .sign{margin-top:4.6vh;font-size:5.2vw;letter-spacing:.35em;text-indent:.35em;color:var(--rose-d)}
-  #end .wait{margin-top:1.6vh;font-size:3vw;color:#b48a92;letter-spacing:.4em;text-indent:.4em}
-  .credit{width:100%;text-align:center;font-size:2.4vw;color:#c9a3ab;letter-spacing:.06em;line-height:1.9;padding:0 10vw 5vh}
+  #end .thanks{font-size:4.1vw;line-height:2.3;letter-spacing:.12em}
+  #end .sign{margin-top:4.4vh;font-size:5vw;letter-spacing:.35em;text-indent:.35em;color:var(--rose-d)}
+  #end .wait{margin-top:1.6vh;font-size:2.9vw;color:#b48a92;letter-spacing:.4em;text-indent:.4em}
+  .credit{width:100%;text-align:center;font-size:2.4vw;color:#c9a3ab;letter-spacing:.06em;line-height:1.9;padding:0 10vw 4vh}
 
   /* 音乐开关 */
   #music{
@@ -172,7 +164,7 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   #toast{
     position:fixed;left:50%;top:42%;transform:translate(-50%,-50%);z-index:90;
-    background:rgba(93,58,61,.92);color:#fff;font-size:3.4vw;letter-spacing:.12em;
+    background:rgba(93,58,61,.92);color:#fff;font-size:3.3vw;letter-spacing:.12em;
     padding:2vh 6vw;border-radius:999px;display:none;max-width:84vw;
   }
 </style>
@@ -209,19 +201,62 @@
 <!-- ====== 正文长卷 ====== -->
 <main>
   <!-- 引言 -->
-  <section id="intro">
+  <section id="intro" style="min-height:96vh">
     <div class="en fade">WE ARE GETTING MARRIED</div>
     <h2 class="fade">我们结婚啦</h2>
     <div class="divider fade"><span class="flower">❦</span></div>
     <div class="panel fade">
       <p class="p">婚礼是一场<span class="hl">过渡性仪式</span><br>
       这份仪式感会因为家人、朋友的到场<br>而变得丰满珍贵</p>
-      <p class="p sm" style="margin-top:2.6vh">诚挚邀请您来参加我们的婚礼<br>见证这场因爱而生的结合</p>
+      <p class="p sm" style="margin-top:2.4vh">诚挚邀请您来参加我们的婚礼<br>见证这场因爱而生的结合</p>
     </div>
   </section>
 
+  <!-- 照片故事：一屏一图(由小变大/旋转浮现) ↔ 文字 -->
+  <section id="moments">
+
+    <div class="mstep">
+      <div class="mreveal shotwrap" data-i="0"><div class="ph-tip"><span class="ic">📷</span>照片待放</div></div>
+      <div class="stepno fade">01</div>
+    </div>
+
+    <div class="mverse">
+      <div class="en fade">OUR STORY</div>
+      <p class="vbig fade">幸有你相爱<br>余生为你而来</p>
+      <p class="vsub fade">也许世界上有五千朵和你一样的花<br>但只有你，是我独一无二的玫瑰</p>
+    </div>
+
+    <div class="mstep">
+      <div class="mreveal spin shotwrap" data-i="1"><div class="ph-tip"><span class="ic">📷</span>照片待放</div></div>
+      <div class="stepno fade">02</div>
+    </div>
+
+    <div class="mverse">
+      <div class="en fade">WITH YOU</div>
+      <p class="vbig fade">想带你去<br>看日出日落 看星星闪烁</p>
+      <p class="vsub fade">春夏秋冬，三餐四季<br>用一辈子，陪你去想去的每一个地方</p>
+    </div>
+
+    <div class="mstep">
+      <div class="mreveal shotwrap" data-i="2"><div class="ph-tip"><span class="ic">📷</span>照片待放</div></div>
+      <div class="stepno fade">03</div>
+    </div>
+
+    <div class="mverse">
+      <div class="en fade">THANK YOU</div>
+      <p class="vbig fade">愿我们最好的时光<br>都有你的祝福</p>
+      <p class="vsub fade">愿余生与对方共度<br>与一切美好，不期而遇</p>
+    </div>
+
+    <div class="mstep">
+      <div class="mreveal spin shotwrap" data-i="3"><div class="ph-tip"><span class="ic">📷</span>照片待放</div></div>
+      <div class="stepno fade">04</div>
+    </div>
+
+  </section>
+
   <!-- 邀请语 -->
-  <section id="invite">
+  <section id="invite" style="min-height:96vh">
     <div class="en fade">INVITATION</div>
     <h2 class="fade">诚挚邀请</h2>
     <div class="panel fade">
@@ -229,35 +264,15 @@
         <span class="dy" id="chipDate">10月03日</span>
         <span class="dm" id="chipWeek">星期六</span>
       </div>
-      <p class="p" style="margin-top:3.4vh" id="inviteTxt">
+      <p class="p" style="margin-top:3vh" id="inviteTxt">
         谨定于公历 2026 年 10 月 3 日<br>我们将举行结婚典礼<br>执子之手，与子偕老<br>诚邀您莅临，共证幸福
       </p>
-      <div class="who fade" style="margin-top:3.2vh;font-size:3.5vw;color:#b48a92;letter-spacing:.25em" id="inviteNames">—— 新郎 &amp; 新娘 ——</div>
-    </div>
-  </section>
-
-  <!-- 照片 -->
-  <section id="photos">
-    <div class="en fade">OUR MOMENT</div>
-    <h2 class="fade">一屋两人 · 三餐四季</h2>
-    <div class="divider fade"><span class="flower">❦</span></div>
-    <div class="strip fade" id="strip"></div>
-    <div class="hint fade">左右滑动 · 翻阅我们的故事</div>
-  </section>
-
-  <!-- 誓言 -->
-  <section id="vow">
-    <div class="en fade">OUR STORY</div>
-    <h2 class="fade">我们的爱情</h2>
-    <div class="panel fade">
-      <div class="vowline">幸 有 你 相 爱</div>
-      <div class="vowline">余 生 为 你 而 来</div>
-      <div class="sub fade">也许世界上有五千朵和你一样的花<br>但只有你，是我独一无二的玫瑰</div>
+      <div style="margin-top:3vh;font-size:3.4vw;color:#b48a92;letter-spacing:.25em" id="inviteNames">—— 新郎 &amp; 新娘 ——</div>
     </div>
   </section>
 
   <!-- 倒计时 -->
-  <section id="count">
+  <section id="count" style="min-height:96vh">
     <div class="en fade">COUNTDOWN</div>
     <h2 class="fade">与您相约</h2>
     <div class="panel fade" style="background:linear-gradient(170deg,#fff,#fdeef3)">
@@ -268,7 +283,7 @@
   </section>
 
   <!-- 日历 -->
-  <section id="cal">
+  <section id="cal" style="min-height:96vh">
     <div class="en fade">SAVE THE DATE</div>
     <h2 class="fade">婚期</h2>
     <div class="calcard fade">
@@ -289,11 +304,11 @@
   </section>
 
   <!-- 地址 -->
-  <section id="map">
+  <section id="map" style="min-height:96vh">
     <div class="en fade">WEDDING ADDRESS</div>
     <h2 class="fade">典礼地点</h2>
     <div class="panel fade">
-      <div style="font-size:9vw;line-height:1;margin-top:1vh">💒</div>
+      <div style="font-size:8vw;line-height:1;margin-top:1vh">💒</div>
       <div class="addrname" id="infoVenue">江西老宅</div>
       <div class="addrfull" id="infoAddr"></div>
       <div class="btnrow">
@@ -304,13 +319,13 @@
   </section>
 
   <!-- 结尾 -->
-  <section id="end">
+  <section id="end" style="min-height:96vh">
     <div class="en fade">THANK YOU</div>
     <h2 class="fade">敬备喜酌 · 恭候莅临</h2>
     <div class="panel fade">
       <p class="thanks">感谢您不远万里为我们祝福<br>
       您的祝福与支持<br>将伴我们开启新的人生篇章<br><br>
-      愿我们继续在每一个温暖的日子里相约<br>与一切美好不期而遇</p>
+      愿我们继续在每一个温暖的日子里相约</p>
     </div>
     <div class="sign fade" id="endNames">新郎 &amp; 新娘 敬邀</div>
     <div class="wait fade">期待您的到来 🌸</div>
@@ -373,22 +388,21 @@ var opened = false;
 document.getElementById('openBtn').addEventListener('click', function(){
   if(opened) return; opened = true;
   document.getElementById('cover').classList.add('hide');
-  document.body.style.overflow = 'auto';
+  document.body.classList.add('unlocked');
   bgm.load(); bgm.play().then(function(){
     musicBtn.style.display='flex'; musicBtn.classList.add('on');
   }).catch(function(){ /* 无音乐文件或受限则静默 */ });
   setTimeout(function(){ document.querySelectorAll('#intro .fade').forEach(function(el){el.classList.add('in')}); }, 250);
 });
-musicBtn.addEventListener('click', function(){
-  if(bgm.paused){ bgm.play(); musicBtn.classList.add('on'); }
-  else{ bgm.pause(); musicBtn.classList.remove('on'); }
-});
 
-/* ---- 滚动渐显 ---- */
+/* ---- 滚动入场 ----
+   .fade  : 温和上移淡入(文字)
+   .mreveal: 照片浮现——默认由小变大; .spin 变体带旋转
+   rootMargin 底部 -12vh: 元素刚冒头即触发, 滚动节奏自然 */
 var io = new IntersectionObserver(function(es){
   es.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
-},{threshold:.15});
-document.querySelectorAll('.fade').forEach(function(el){ io.observe(el); });
+},{rootMargin:'0px 0px -12vh 0px', threshold:.08});
+document.querySelectorAll('.fade,.mreveal').forEach(function(el){ io.observe(el); });
 
 /* ---- 倒计时 ---- */
 function tick(){
@@ -398,15 +412,19 @@ function tick(){
 }
 tick(); setInterval(tick, 60000);
 
-/* ---- 照片横滑(婚礼纪式长条相册) ---- */
-var photos = CONFIG.photos, strip = document.getElementById('strip');
-photos.forEach(function(p){
-  var wrap=document.createElement('div'); wrap.className='phcard';
-  var im=new Image(); im.src=p;
-  im.onload=function(){ wrap.innerHTML=''; wrap.appendChild(im); };
-  im.onerror=function(){ wrap.innerHTML='<div class="ph"><span class="ic">📷</span>照片待放</div>'; };
-  wrap.innerHTML='<div class="ph"><span class="ic">📷</span>照片待放</div>';
-  strip.appendChild(wrap);
+/* ---- 照片注入:每张图占满对应相框 ---- */
+var wraps = document.querySelectorAll('.shotwrap');
+CONFIG.photos.forEach(function(p, i){
+  var w = wraps[i]; if(!w) return;
+  var im = new Image(); im.src = p;
+  im.onload = function(){ w.innerHTML=''; w.appendChild(im); };
+  im.onerror = function(){ /* 保留占位文案 */ };
+});
+
+/* ---- 音乐开关 ---- */
+musicBtn.addEventListener('click', function(){
+  if(bgm.paused){ bgm.play(); musicBtn.classList.add('on'); }
+  else{ bgm.pause(); musicBtn.classList.remove('on'); }
 });
 
 /* ---- 复制地址 / 打开导航 ---- */
