@@ -23,39 +23,39 @@ img.phimg,.ph{display:block}
 /* 照片位占位 */
 .ph{background:rgba(255,255,255,.72);border:1.5px dashed #E2BFCE;color:#C9A0B2;
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
-.ph .camera{font-size:31.0px;opacity:.85;line-height:1}
-.ph .cap{font-family:"Songti SC","SimSun",serif;font-size:21.0px;letter-spacing:4px}
+.ph .camera{font-size:34.0px;opacity:.85;line-height:1}
+.ph .cap{font-family:"Songti SC","SimSun",serif;font-size:24.0px;letter-spacing:4px}
 img.phimg{width:100%;height:100%;object-fit:cover}
 /* 大卡片(日历信息卡/柔和圆角) */
 .cardsoft{position:absolute;background:#FFE2D3;border-radius:36px;box-shadow:0 10px 30px rgba(153,23,0,.10)}
 /* 音乐按钮 */
 #music{position:fixed;right:14px;bottom:26px;z-index:99;width:44px;height:44px;border-radius:50%;
   background:rgba(255,255,255,.92);border:1px solid #E8B7C4;box-shadow:0 2px 10px rgba(153,23,0,.18);
-  display:flex;align-items:center;justify-content:center;font-size:21.0px}
+  display:flex;align-items:center;justify-content:center;font-size:24.0px}
 #music.on{animation:spin 3.6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 /* 来宾输入 */
 .gin{border:0;border-bottom:1.5px solid rgba(153,23,0,.55);background:transparent;border-radius:0;
-  text-align:center;font-family:"Songti SC","SimSun","Noto Serif CJK SC",serif;font-size:29.0px;color:#991700;
+  text-align:center;font-family:"Songti SC","SimSun","Noto Serif CJK SC",serif;font-size:32.0px;color:#991700;
   padding:6px 4px;outline:none;caret-color:#991700}
-.gin::placeholder{color:#C69AA8;font-size:25.0px}
+.gin::placeholder{color:#C69AA8;font-size:28.0px}
 /* 提交按钮 */
 .gbtn{border:0;background:#991700;color:#FFF;border-radius:40px;font-family:"Songti SC",serif;
-  font-size:29.0px;letter-spacing:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  font-size:32.0px;letter-spacing:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;
   box-shadow:0 6px 18px rgba(153,23,0,.28)}
 .gbtn:active{transform:scale(.97)}
 /* toast */
 #toast{position:fixed;left:50%;top:46%;transform:translate(-50%,-50%);z-index:100;background:rgba(0,0,0,.66);
-  color:#fff;font-size:16.0px;padding:12px 22px;border-radius:12px;display:none;max-width:78%;text-align:center;
+  color:#fff;font-size:19.0px;padding:12px 22px;border-radius:12px;display:none;max-width:78%;text-align:center;
   font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.5}
 /* 地图占位 */
 .mapbox{position:absolute;background:#F9E9EF;border:1px solid #F0D2DE;overflow:hidden;cursor:pointer}
 .mapbox .grid{position:absolute;left:0;top:0;right:0;bottom:0;opacity:.5;
   background-image:linear-gradient(rgba(201,160,178,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(201,160,178,.10) 1px,transparent 1px);
   background-size:34px 34px}
-.mapbox .pin{position:absolute;top:38%;left:50%;transform:translate(-50%,-100%);font-size:53.0px;line-height:1;filter:drop-shadow(0 3px 3px rgba(0,0,0,.15))}
+.mapbox .pin{position:absolute;top:38%;left:50%;transform:translate(-50%,-100%);font-size:56.0px;line-height:1;filter:drop-shadow(0 3px 3px rgba(0,0,0,.15))}
 .mapbox .mpill{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:#C10909;color:#fff;
-  font-family:"Songti SC",serif;font-size:21.0px;letter-spacing:2px;padding:6px 26px;border-radius:30px;white-space:nowrap}
+  font-family:"Songti SC",serif;font-size:24.0px;letter-spacing:2px;padding:6px 26px;border-radius:30px;white-space:nowrap}
 /* 红包尾页 */
 /* ============ 原版滚动入场动画 (qt-* 族, 2s, 滚动触发一次) ============ */
 @keyframes qFadeIn   { from{opacity:0} to{opacity:1} }
@@ -66,7 +66,7 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 @keyframes qExpand   { from{opacity:0;transform:scaleX(.04)} to{opacity:1;transform:none} }
 @keyframes qPop      { from{opacity:0;transform:scale(.2)} to{opacity:1;transform:none} }
 html.js .q{opacity:0;will-change:opacity,transform}
-.w3{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 92'><path d='M50,88 C16,60 0,40 0,22 C0,8 10,0 22,0 C32,0 44,7 50,18 C56,7 68,0 78,0 C90,0 100,8 100,22 C100,40 84,60 50,88 Z' fill='%23C10909'/></svg>") center/62px 58px no-repeat;color:#fff;font-size:26.0px;font-weight:bold;}
+.w3{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 92'><path d='M50,88 C16,60 0,40 0,22 C0,8 10,0 22,0 C32,0 44,7 50,18 C56,7 68,0 78,0 C90,0 100,8 100,22 C100,40 84,60 50,88 Z' fill='%23C10909'/></svg>") center/62px 58px no-repeat;color:#fff;font-size:29.0px;font-weight:bold;}
 .q.in{animation:var(--an,qFadeIn) 5s cubic-bezier(.25,.6,.3,1) forwards;animation-delay:var(--dl,0s)}[data-ph="0"].q.in,img[src*="art5.svg"].q.in{animation-duration:1.5s}
 /* ============ 照片真遮罩(原卡 SVG: 拱门/圆拱, 非直角框) ============ */
 .mk6{-webkit-mask-image:url(assets/masks/m6.svg);mask-image:url(assets/masks/m6.svg);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
@@ -121,26 +121,26 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <img class="abs" src="assets/art/art7.svg?v=2" style="left:299px;top:-73px;width:152px;height:151.2px">
 
 <!-- [72][73] 封面日期(农历左 / 公历右, 蜜桃色) -->
-<div class="t fS" id="coverLunar" style="left:76px;top:310px;width:276px;font-size:33.0px;line-height:1.2;color:#FFD2B7"></div>
-<div class="t fS" id="coverDate" style="left:398px;top:310px;width:276px;text-align:right;font-size:33.0px;line-height:1.2;color:#FFD2B7"></div>
+<div class="t fS" id="coverLunar" style="left:76px;top:310px;width:276px;font-size:36.0px;line-height:1.2;color:#FFD2B7"></div>
+<div class="t fS" id="coverDate" style="left:398px;top:310px;width:276px;text-align:right;font-size:36.0px;line-height:1.2;color:#FFD2B7"></div>
 
 <!-- [71] 皇冠 -->
 <img class="abs" src="assets/art/art71.svg?v=2" style="left:319px;top:199px;width:88px;height:84px">
 
 <!-- [12][13][14] 新人姓名 + & -->
-<div class="t fS" id="groomName" style="left:29px;top:1149px;width:286px;height:72px;text-align:right;font-size:37.0px;line-height:72px;color:#991700"></div>
-<div class="t fS" id="brideName" style="left:435px;top:1149px;width:286px;height:72px;text-align:left;font-size:37.0px;line-height:72px;color:#991700"></div>
+<div class="t fS" id="groomName" style="left:29px;top:1149px;width:286px;height:72px;text-align:right;font-size:40.0px;line-height:72px;color:#991700"></div>
+<div class="t fS" id="brideName" style="left:435px;top:1149px;width:286px;height:72px;text-align:left;font-size:40.0px;line-height:72px;color:#991700"></div>
 <img class="abs" src="assets/art/art14.svg" style="left:368px;top:1159px;width:28px;height:33px">
 
 <!-- ============ 誓言区 ============ -->
 <!-- [11] 誓言长诗(左) -->
-<div class="t fS q" id="poem1" data-ani="qFadeInUp" style="left:6px;top:1400.9px;width:516px;font-size:27.0px;line-height:2.3;color:#991700;letter-spacing:4px"></div>
+<div class="t fS q" id="poem1" data-ani="qFadeInUp" style="left:6px;top:1400.9px;width:516px;font-size:30.0px;line-height:2.3;color:#991700;letter-spacing:4px"></div>
 <!-- [8] 右侧拍立得照 -->
 <div class="abs ph mk8 q" data-ph="1" data-ani="qFadeInRight" style="left:506px;top:1508px;width:219px;height:364.3px"></div>
 <!-- [9] 右上暗红花枝 -->
 <img class="abs" src="assets/art/art9.svg" style="left:589px;top:1346px;width:204px;height:199px">
 <!-- [10] 英文花体 -->
-<div class="t fG" id="gvLine" style="left:290px;top:1890px;width:440px;text-align:right;font-size:25.0px;line-height:1.3;color:#991700"></div>
+<div class="t fG" id="gvLine" style="left:290px;top:1890px;width:440px;text-align:right;font-size:28.0px;line-height:1.3;color:#991700"></div>
 
 <!-- ============ 日历信息卡 ============ -->
 <!-- [15] 柔色大卡(圆角) -->
@@ -148,17 +148,17 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <!-- [16] 卡顶横照 -->
 <div class="abs ph q" data-ph="2" data-ani="qFadeInUp" style="left:89.5px;top:2131.4px;width:581px;height:395.6px"></div>
 <!-- [17][18] 标题行 -->
-<div class="t fH" data-ff="LY" style="left:75px;top:2543.1px;width:278px;font-size:25.0px;line-height:1.2;color:#C10909;letter-spacing:6px;font-weight:600">LOVE&nbsp;YOU</div>
-<div class="t fS" data-ff="WED" style="left:351px;top:2540.2px;width:342px;text-align:center;font-size:25.0px;line-height:1.2;color:#C10909;letter-spacing:20px">我们要结婚啦</div>
+<div class="t fH" data-ff="LY" style="left:75px;top:2543.1px;width:278px;font-size:28.0px;line-height:1.2;color:#C10909;letter-spacing:6px;font-weight:600">LOVE&nbsp;YOU</div>
+<div class="t fS" data-ff="WED" style="left:351px;top:2540.2px;width:342px;text-align:center;font-size:28.0px;line-height:1.2;color:#C10909;letter-spacing:20px">我们要结婚啦</div>
 <!-- [19] 月历(JS生成) -->
 <div id="calWrap" class="abs" style="left:89px;top:2606px;width:582px;height:540px"></div>
 
 <!-- [20] 邀请诗 -->
-<div class="t fS q" data-ani="qFadeInUp" style="left:160px;top:3714.4px;width:430px;text-align:center;font-size:27.0px;line-height:2.3;color:#991700;letter-spacing:2px" id="inviteTxt"></div>
+<div class="t fS q" data-ani="qFadeInUp" style="left:160px;top:3714.4px;width:430px;text-align:center;font-size:30.0px;line-height:2.3;color:#991700;letter-spacing:2px" id="inviteTxt"></div>
 
 <!-- ============ 婚宴信息行 + 倒计时 ============ -->
-<div class="t fS" id="addrCellL" style="left:29px;top:3280px;width:288px;height:134px;text-align:right;font-size:27.0px;line-height:1.6;color:#991700"></div>
-<div class="t fS" id="dateCellR" style="left:387px;top:3295px;width:334px;font-size:27.0px;line-height:1.5;color:#991700"></div>
+<div class="t fS" id="addrCellL" style="left:29px;top:3280px;width:288px;height:134px;text-align:right;font-size:30.0px;line-height:1.6;color:#991700"></div>
+<div class="t fS" id="dateCellR" style="left:387px;top:3295px;width:334px;font-size:30.0px;line-height:1.5;color:#991700"></div>
 <div class="abs" style="left:350px;top:3300px;width:2px;height:70px;background:#C10909"></div>
 <div id="cd1" style="position:absolute;left:375px;top:3440.4px;transform:translateX(-50%);display:flex;gap:10px"></div>
 
@@ -171,19 +171,19 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <div class="abs ph q" data-ph="6" data-ani="qFadeInUp" style="left:45px;top:5447px;width:660px;height:944.2px"></div>
 
 <!-- [64] 想带你去… -->
-<div class="t fS q" data-ani="qFadeInLeft" style="left:103px;top:6584.5px;width:362px;font-size:27.0px;line-height:2.2;color:#991700;letter-spacing:3px" id="pVow1"></div>
+<div class="t fS q" data-ani="qFadeInLeft" style="left:103px;top:6584.5px;width:362px;font-size:30.0px;line-height:2.2;color:#991700;letter-spacing:3px" id="pVow1"></div>
 
 <!-- [40] 右上暗红花枝 -->
 <img class="abs" src="assets/art/art9.svg" style="left:635.5px;top:7024px;width:204px;height:199px">
 
 <!-- ============ 新娘区块(左照右名) ============ -->
 <div class="abs ph q" data-ph="7" data-ani="qFadeInUp" style="left:0;top:7250px;width:424px;height:486.9px"></div>
-<div class="t fS" id="brideBig" style="left:457.5px;top:7641px;width:246px;font-size:31.0px;line-height:1.54;color:#991700"></div>
+<div class="t fS" id="brideBig" style="left:457.5px;top:7641px;width:246px;font-size:34.0px;line-height:1.54;color:#991700"></div>
 <img class="abs" src="assets/art/art38.svg" style="left:471.5px;top:7581px;width:198px;height:31.9px">
 
 <!-- ============ 新郎区块(右照左名) ============ -->
 <div class="abs ph q" data-ph="8" data-ani="qFadeInUp" style="left:319.5px;top:8054px;width:369px;height:522px"></div>
-<div class="t fS" id="groomBig" style="left:92.5px;top:8464px;width:198px;text-align:right;font-size:31.0px;line-height:1.54;color:#991700"></div>
+<div class="t fS" id="groomBig" style="left:92.5px;top:8464px;width:198px;text-align:right;font-size:34.0px;line-height:1.54;color:#991700"></div>
 <img class="abs" src="assets/art/art39.svg" style="left:39.5px;top:8401px;width:238px;height:31px">
 
 <!-- 三连照 -->
@@ -192,8 +192,8 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <div class="abs ph q" data-ph="11" data-ani="qFadeInUp" style="left:494.5px;top:8746px;width:250px;height:216px"></div>
 
 <!-- [42][43] 一屋两人 -->
-<div class="t fS q" data-ff="HOME" data-ani="qFadeInUp" style="left:51.5px;top:9100px;width:650px;text-align:center;font-size:35.0px;line-height:2.5;color:#991700;letter-spacing:7px;white-space:nowrap">一/屋/两/人&nbsp;&nbsp;三/餐/四/季</div>
-<div class="t fS q" data-ani="qFadeInUp" style="left:48.5px;top:9216px;width:650px;text-align:center;font-size:29.0px;line-height:1.9;color:#991700" id="pVow2"></div>
+<div class="t fS q" data-ff="HOME" data-ani="qFadeInUp" style="left:51.5px;top:9100px;width:650px;text-align:center;font-size:38.0px;line-height:2.5;color:#991700;letter-spacing:7px;white-space:nowrap">一/屋/两/人&nbsp;&nbsp;三/餐/四/季</div>
+<div class="t fS q" data-ani="qFadeInUp" style="left:48.5px;top:9216px;width:650px;text-align:center;font-size:32.0px;line-height:1.9;color:#991700" id="pVow2"></div>
 <img class="abs" src="assets/art/art41.svg" style="left:516.5px;top:9123px;width:72px;height:71.6px;opacity:.5">
 
 <!-- [44][49] 双横图 + [45] 分隔 -->
@@ -211,7 +211,7 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <div class="abs ph q" data-ph="17" data-ani="qExpand" style="left:62.5px;top:11097.3px;width:622px;height:453.7px"></div>
 
 <!-- [65][66][67][68] 世界上最美的一刻 + 相框 -->
-<div class="t fS q" data-ani="qFadeInRight" style="left:25px;top:11794.2px;width:544px;font-size:29.0px;line-height:2.3;color:#991700;letter-spacing:4px" id="pVow3"></div>
+<div class="t fS q" data-ani="qFadeInRight" style="left:25px;top:11794.2px;width:544px;font-size:32.0px;line-height:2.3;color:#991700;letter-spacing:4px" id="pVow3"></div>
 <img class="abs" src="assets/art/art70.svg" style="left:607.5px;top:11760px;width:204px;height:199px">
 <img class="abs q" src="assets/art/art66.svg" data-ani="qFadeInRight" style="left:86px;top:12086.2px;width:478px;height:55.9px">
 <img class="abs q" src="assets/art/art67.svg" data-ani="qFadeInDown" style="left:57px;top:12317.5px;width:615px;height:276px">
@@ -221,8 +221,8 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <div id="cd2" style="position:absolute;left:375px;top:13292.1px;transform:translateX(-50%);display:flex;gap:7px"></div>
 
 <!-- ============ 邀请/地图/回执卡 ============ -->
-<div class="t fG" data-ff="STD" style="left:115px;top:13483.7px;width:520px;text-align:center;font-size:25.0px;line-height:1.2;color:#991700;letter-spacing:15px;text-transform:uppercase">save the date</div>
-<div class="t fS" data-ff="JX" style="left:143.1px;top:13537.4px;width:463.8px;text-align:center;font-size:29.0px;line-height:1.2;color:#991700;letter-spacing:8px">敬备喜酌&nbsp;&nbsp;恭候莅临</div>
+<div class="t fG" data-ff="STD" style="left:115px;top:13483.7px;width:520px;text-align:center;font-size:28.0px;line-height:1.2;color:#991700;letter-spacing:15px;text-transform:uppercase">save the date</div>
+<div class="t fS" data-ff="JX" style="left:143.1px;top:13537.4px;width:463.8px;text-align:center;font-size:32.0px;line-height:1.2;color:#991700;letter-spacing:8px">敬备喜酌&nbsp;&nbsp;恭候莅临</div>
 
 <!-- [61] 地图占位(原卡为杭州示例地图, 不复用; 点按开导航) -->
 <div class="mapbox" id="mapBox" style="left:198px;top:13695.4px;width:354px;height:232px">
@@ -231,8 +231,8 @@ html.js .q{opacity:0;will-change:opacity,transform}
   <div class="mpill">查看地图 ▸</div>
 </div>
 
-<div class="t fS" id="dateCenter" style="left:136px;top:13973.4px;width:478px;text-align:center;font-size:29.0px;line-height:1.6;color:#991700"></div>
-<div class="t fS" id="addrCenter" style="left:136px;top:14081.4px;width:478px;text-align:center;font-size:29.0px;line-height:1.6;color:#991700"></div>
+<div class="t fS" id="dateCenter" style="left:136px;top:13973.4px;width:478px;text-align:center;font-size:32.0px;line-height:1.6;color:#991700"></div>
+<div class="t fS" id="addrCenter" style="left:136px;top:14081.4px;width:478px;text-align:center;font-size:32.0px;line-height:1.6;color:#991700"></div>
 
 <!-- [58][59] 来宾输入 -->
 <input class="gin abs" id="gName" type="text" maxlength="12" placeholder="您的姓名"
@@ -244,10 +244,10 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <img class="abs" src="assets/art/art54.svg" style="left:172px;top:14556.4px;width:406px;height:86.1px;opacity:.59">
 
 <!-- [69] 结尾长诗 -->
-<div class="t fH q" data-ani="qFadeInUp" style="left:50px;top:14746.8px;width:650px;text-align:center;font-size:27.0px;line-height:2.2;color:#991700;font-weight:300" id="pVow4"></div>
+<div class="t fH q" data-ani="qFadeInUp" style="left:50px;top:14746.8px;width:650px;text-align:center;font-size:30.0px;line-height:2.2;color:#991700;font-weight:300" id="pVow4"></div>
 
 <!-- 原版[63]红包尾页(送红包/礼物)已按用户要求移除, 仅留署名收尾 -->
-<div class="t fS" style="left:0;top:15355px;width:750px;text-align:center;font-size:19.0px;letter-spacing:6px;color:rgba(153,23,0,.55)" id="footerLine"></div>
+<div class="t fS" style="left:0;top:15355px;width:750px;text-align:center;font-size:22.0px;letter-spacing:6px;color:rgba(153,23,0,.55)" id="footerLine"></div>
 
 </div></div>
 
@@ -336,11 +336,11 @@ var slots = document.querySelectorAll('.ph');
   var first = new Date(y, m, 1).getDay();          // 0=周日
   var days  = new Date(y, m+1, 0).getDate();
   var wrap = document.getElementById('calWrap');
-  var html = '<div style="text-align:center;font-size:20.0px;letter-spacing:4px;color:#991700;margin-bottom:10px">'
+  var html = '<div style="text-align:center;font-size:23.0px;letter-spacing:4px;color:#991700;margin-bottom:10px">'
            + y + ' 年 ' + (m+1) + ' 月</div>';
   var wd = ['日','一','二','三','四','五','六'];
   html += '<div style="display:flex;margin-bottom:6px">';
-  for (var i=0;i<7;i++) html += '<div style="flex:1;text-align:center;font-size:18.0px;color:#C66">' + wd[i] + '</div>';
+  for (var i=0;i<7;i++) html += '<div style="flex:1;text-align:center;font-size:21.0px;color:#C66">' + wd[i] + '</div>';
   html += '</div>';
   var cell = 74, ch = 66, n = 0;
   html += '<div style="display:flex;flex-wrap:wrap">';
@@ -351,9 +351,9 @@ var slots = document.querySelectorAll('.ph');
     var isToday = (cur.toDateString() === new Date().toDateString());
     var style = 'width:'+cell+'px;height:'+ch+'px;display:flex;align-items:center;justify-content:center;';
     if (isWed) {
-      style += 'color:#fff;font-size:26.0px;font-weight:bold;';
+      style += 'color:#fff;font-size:29.0px;font-weight:bold;';
     } else {
-      style += 'color:#991700;font-size:25.0px;border-radius:50%;';
+      style += 'color:#991700;font-size:28.0px;border-radius:50%;';
       if (isToday) style += 'box-shadow:inset 0 0 0 1.5px #C10909;';
     }
     html += '<div class="' + (isWed ? 'w3' : '') + '" style="' + style + '">' + i + '</div>';
