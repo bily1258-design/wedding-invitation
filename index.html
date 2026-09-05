@@ -7,10 +7,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>婚礼邀请函</title>
 <style>
-/* ============ 原版婚礼纪卡片 1:1 复刻(设计稿 750×16586) ============ */
+/* ============ 原版婚礼纪卡片 1:1 复刻(设计稿 750×16586, 已按用户要求移除末端红包页 → 高 15500) ============ */
 html,body{margin:0;padding:0;background:#FFECF3;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:transparent}
 #wrap{position:relative;width:100%;overflow:hidden}
-#stage{position:absolute;top:0;left:50%;width:750px;height:16586px;margin-left:-375px;transform-origin:top center}
+#stage{position:absolute;top:0;left:50%;width:750px;height:15500px;margin-left:-375px;transform-origin:top center}
 #stage *{box-sizing:border-box}
 .abs{position:absolute}
 .t{position:absolute;white-space:pre-line;overflow:visible}
@@ -57,7 +57,6 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 .mapbox .mpill{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:#C10909;color:#fff;
   font-family:"Songti SC",serif;font-size:20px;letter-spacing:2px;padding:6px 26px;border-radius:30px;white-space:nowrap}
 /* 红包尾页 */
-.giftbox{position:absolute;background:#990017}
 /* 首页底部小字(非原版元素, 便于沟通) */
 </style>
 </head>
@@ -205,17 +204,8 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 <!-- [69] 结尾长诗 -->
 <div class="t fH" style="left:50px;top:14746.8px;width:650px;text-align:center;font-size:26px;line-height:2.2;color:#991700;font-weight:300" id="pVow4"></div>
 
-<!-- ============ [63] 红包尾页 ============ -->
-<div class="giftbox" style="left:0;top:15388.4px;width:750px;height:1188px">
-  <div style="position:absolute;top:150px;left:0;width:750px;text-align:center">
-    <span class="t fS" style="position:static;font-size:26px;letter-spacing:10px;color:#FFD2B7" id="giftTitle"></span>
-  </div>
-  <div style="position:absolute;left:255px;top:235px;width:240px;height:240px;background:#fff;border-radius:18px;padding:12px">
-    <img src="qr.png" style="width:216px;height:216px;display:block">
-  </div>
-  <div class="t fS" style="left:0;top:530px;width:750px;text-align:center;font-size:26px;letter-spacing:4px;color:#FFD2B7;white-space:nowrap" id="giftSub"></div>
-  <div class="t fS" style="left:0;top:990px;width:750px;text-align:center;font-size:18px;letter-spacing:6px;color:rgba(255,210,183,.75)" id="footerLine"></div>
-</div>
+<!-- 原版[63]红包尾页(送红包/礼物)已按用户要求移除, 仅留署名收尾 -->
+<div class="t fS" style="left:0;top:15355px;width:750px;text-align:center;font-size:18px;letter-spacing:6px;color:rgba(153,23,0,.55)" id="footerLine"></div>
 
 </div></div>
 
@@ -237,8 +227,6 @@ var CONFIG = {
   addr  : '',                         /* 详细地址(留空则不显示导航, 填了自动启用) */
   mapUrl: '',                         /* 可选: 直接指定导航链接(如 https://uri.amap.com/marker?... ) */
   lunar : '',                         /* 农历, 如 '八月廿三'; 留空封面左侧显示"良辰吉日" */
-  giftTitle : '感恩有您 · 见证幸福',   /* 红包尾页标题 */
-  giftSub   : '长按识别二维码 · 送上您的心意',  /* 红包尾页副句 */
   footerLine: '—— 新郎 & 新娘 敬上 ——',
   photos: ['assets/photos/1.jpg','assets/photos/2.jpg','assets/photos/3.jpg','assets/photos/4.jpg']
 };
@@ -275,8 +263,6 @@ setT('pVow3', COPY.pVow3);
 setT('pVow4', COPY.pVow4);
 setT('groomBig', CONFIG.groom);
 setT('brideBig', CONFIG.bride);
-setT('giftTitle', CONFIG.giftTitle);
-setT('giftSub', CONFIG.giftSub);
 setT('footerLine', CONFIG.footerLine.replace('新郎', CONFIG.groom).replace('新娘', CONFIG.bride));
 var addrText = CONFIG.addr || CONFIG.venue;
 setT('addrCellL', addrText);
@@ -394,7 +380,7 @@ var stage = document.getElementById('stage'), wrap = document.getElementById('wr
 function scaleStage(){
   var s = Math.min(1, window.innerWidth / 750);
   stage.style.transform = 'scale(' + s + ')';
-  wrap.style.height = Math.ceil(16586 * s) + 'px';
+  wrap.style.height = Math.ceil(15500 * s) + 'px';
 }
 window.addEventListener('resize', scaleStage); scaleStage();
 
