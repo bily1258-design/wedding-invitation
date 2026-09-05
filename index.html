@@ -444,7 +444,12 @@ function tryPlay(){
 }
 tryPlay();                                   /* 1) 立即尝试(部分安卓WebView/微信允许无手势播放) */
 document.addEventListener('WeixinJSBridgeReady', tryPlay, false);  /* 2) 微信桥就绪后再试 */
-['touchstart','touchend','click'].forEach(function(ev){ document.addEventListener(ev, tryPlay, {passive:true}); });  /* 3) 首触兜底: touchstart最跟手(iOS/安卓微信手势策略) */
+/* 首次触摸总入口: 解锁音乐 + (已进场)同时启动自动上滑 — 两者同步, 与微信"首触才出声"策略一致 */
+function firstTouch(){
+  tryPlay();
+  if (window._entered) window._autoBegin();   /* begin 幂等(started/stopped保护), 重复触摸/拖动手势不冲突 */
+}
+['touchstart','touchend','click'].forEach(function(ev){ document.addEventListener(ev, firstTouch, {passive:true}); });  /* 3) 首触兜底: touchstart最跟手(iOS/安卓微信手势策略) */
 /* 4) 静音自动播探路: 策略允许muted无手势播放, 播放中试探恢复音量 — 标准Chromium会拒(暂停回退首触), 部分微信XWeb放行=真自动出声 */
 function autoProbe(){
   if (played) return;
@@ -539,8 +544,7 @@ mBtn.addEventListener('click', function(){
     raf=requestAnimationFrame(step);
     setTimeout(function(){ if(!stopped && scrollY<2) debug(); }, 3500); /* 3.5s还没动: 亮诊断 */
   }
-  window._autoBegin = begin;   /* 由加载页完成后 enter() 调度: 入场动画(1.5s)播完即起滑 */
-  setTimeout(function(){ if(!window._entered) begin(); }, 5000);  /* 防呆: enter异常未执行时兜底起滑 */
+  window._autoBegin = begin;   /* 由首次触摸(firstTouch)或 enter()(进场前已解锁)调度起滑 */
 })();
 
 /* ===== 加载页(仿原版): 进度条 → 页面出现(重放首屏入场动画) → 音乐/自动滑启动 ===== */
@@ -558,7 +562,9 @@ function enter(){   /* 加载完成 → 页面正式进场 */
   replayQ();                 /* 首屏动画从可见瞬间开始播 */
   tryPlay();                 /* 再试一次音乐(部分内核此窗口放行) */
   setTimeout(function(){ if(!played) toast('♪ 轻触屏幕开启音乐'); }, 1000);  /* 微信禁无手势自动播: 引导首触 */
-  setTimeout(window._autoBegin, 1500);   /* 入场动画完成后自动上滑 */
+  /* 上滑时机: 若进场前已首触解锁音乐(加载页误触/引导) → 入场动画播完自动起滑(体验同旧版);
+     否则上滑由首次触摸驱动, 与音乐解锁同一事件同步启动(见 firstTouch) */
+  if (played) setTimeout(window._autoBegin, 1500);
 }
 (function(){
   var bar=document.getElementById('lpct'), num=document.getElementById('ltxt'), n=0;
