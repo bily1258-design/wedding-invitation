@@ -475,22 +475,33 @@ mBtn.addEventListener('click', function(){
   document.addEventListener('WeixinJSBridgeReady', fix, false);
 })();
 
-/* 打开1.5s后自动上滑: 167px/s, 触屏/滚轮即停, 到底自动停 */
+/* 打开1.5s后自动上滑: 167px/s(按真实帧间隔累积), 拖动/滚轮即停, 到底自动停 */
 (function(){
-  var started=false, stopped=false, timer=null;
-  function halt(){ stopped=true; if(timer){clearInterval(timer); timer=null;} }
-  document.addEventListener('touchstart',halt,{passive:true});
+  var started=false, stopped=false, acc=0, raf=null, last=0;
+  function halt(){ stopped=true; if(raf){cancelAnimationFrame(raf); raf=null;} }
   document.addEventListener('wheel',halt,{passive:true});
-  document.addEventListener('touchmove',halt,{passive:true});
-  function begin(){
-    if(started||stopped) return;
-    started=true;
-    timer=setInterval(function(){
-      if(stopped||document.hidden) return;
+  var ty0=0;
+  document.addEventListener('touchstart',function(e){
+    ty0=(e.touches&&e.touches[0])?e.touches[0].clientY:0;
+  },{passive:true});
+  document.addEventListener('touchmove',function(e){
+    var y=(e.touches&&e.touches[0])?e.touches[0].clientY:0;
+    if(Math.abs(y-ty0)>8) halt();   /* 真正拖动页面才停, 轻点/按住不误杀 */
+  },{passive:true});
+  function step(ts){
+    if(stopped) return;
+    if(!document.hidden){
       var max=document.body.scrollHeight-innerHeight;
       if(scrollY>=max-4){ halt(); return; }
-      scrollBy(0,2);
-    },12);
+      if(last){ acc+=167*(ts-last)/1000; var n=Math.floor(acc); if(n>0){ acc-=n; window.scrollBy(0,n);} }
+    }
+    last=ts;
+    raf=requestAnimationFrame(step);
+  }
+  function begin(){
+    if(started||stopped) return;
+    started=true; last=0;
+    raf=requestAnimationFrame(step);
   }
   /* 第一张图(封面主照)1.5s入场完成时开始上滑 */ setTimeout(begin, 1500);
 })();
