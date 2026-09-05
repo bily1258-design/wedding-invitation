@@ -100,6 +100,12 @@ html.js .q{opacity:0;will-change:opacity,transform}
 [data-ff=STD]{font-family:'FELIXTI-8x83','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
 #gNum{font-family:'FZBYKSK-lE3L','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
 #gSubmit{font-family:'FZBYKSK-GnVZ','Songti SC','STSong','SimSun','Noto Serif CJK SC',serif}
+#loading{position:fixed;left:0;top:0;width:100%;height:100%;z-index:1000;background:linear-gradient(165deg,#FFEDF4,#FFF7FA);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .45s ease}
+#loading.hide{opacity:0;pointer-events:none}
+#loading .lc{font-size:34px;color:#FF6E9C;line-height:1;text-shadow:0 2px 10px rgba(255,110,156,.35);font-family:"PingFang SC"}
+#loading .lb{width:200px;height:6px;background:rgba(255,150,180,.25);border-radius:99px;overflow:hidden;margin-top:30px}
+#loading .lp{height:100%;width:0;background:linear-gradient(90deg,#FF9DB8,#FF6E9C);border-radius:99px;transition:width .12s ease}
+#loading .lt{color:#D96A8F;font-size:12px;letter-spacing:2px;margin-top:12px;font-family:"PingFang SC"}
 </style>
 </head>
 <body>
@@ -253,6 +259,7 @@ html.js .q{opacity:0;will-change:opacity,transform}
 
 <button id="music">🎵</button>
 <audio id="bgm" loop preload="auto" src="assets/music.mp3"></audio>
+<div id="loading"><div class="lc">♥</div><div class="lb"><div class="lp" id="lpct"></div></div><div class="lt"><span id="ltxt">0%</span> · 请柬加载中</div></div>
 <div id="toast"></div>
 
 <script>
@@ -442,8 +449,6 @@ mBtn.addEventListener('click', function(){
   if (bgm.paused) { bgm.play(); mBtn.classList.add('on'); }
   else { bgm.pause(); mBtn.classList.remove('on'); }
 });
-/* 若1.6s内仍未解锁播放(无任何触摸), 提示轻触开启(微信策略: 必须真实手势) */
-setTimeout(function(){ if(!played) toast('♪ 轻触屏幕开启音乐'); }, 1600);
 
 /* 原版滚动入场动画驱动: 进入视口触发一次 */
 (function(){
@@ -519,7 +524,40 @@ setTimeout(function(){ if(!played) toast('♪ 轻触屏幕开启音乐'); }, 160
     raf=requestAnimationFrame(step);
     setTimeout(function(){ if(!stopped && scrollY<2) debug(); }, 3500); /* 3.5s还没动: 亮诊断 */
   }
-  /* 第一张图(封面主照)1.5s入场完成时开始上滑 */ setTimeout(begin, 1500);
+  window._autoBegin = begin;   /* 由加载页完成后 enter() 调度: 入场动画(1.5s)播完即起滑 */
+  setTimeout(function(){ if(!window._entered) begin(); }, 5000);  /* 防呆: enter异常未执行时兜底起滑 */
+})();
+
+/* ===== 加载页(仿原版): 进度条 → 页面出现(重放首屏入场动画) → 音乐/自动滑启动 ===== */
+function replayQ(){   /* 重放已被IO触发的首屏入场动画(勿在遮罩下白播) */
+  var els = document.querySelectorAll('.q.in');
+  for(var i=0;i<els.length;i++){ var el=els[i];
+    el.classList.remove('in'); void el.offsetWidth;
+    el.classList.add('in');
+    el.style.setProperty('--an', el.getAttribute('data-ani')||'qFadeIn');
+    el.style.setProperty('--dl', el.getAttribute('data-dly')||'0s');
+  }
+}
+function enter(){   /* 加载完成 → 页面正式进场 */
+  if(window._entered) return; window._entered = true;
+  replayQ();                 /* 首屏动画从可见瞬间开始播 */
+  tryPlay();                 /* 再试一次音乐(部分内核此窗口放行) */
+  setTimeout(function(){ if(!played) toast('♪ 轻触屏幕开启音乐'); }, 1000);  /* 微信禁无手势自动播: 引导首触 */
+  setTimeout(window._autoBegin, 1500);   /* 入场动画完成后自动上滑 */
+}
+(function(){
+  var bar=document.getElementById('lpct'), num=document.getElementById('ltxt'), n=0;
+  var t0=Date.now(), audioReady=false;
+  bgm.addEventListener('loadeddata', function(){ audioReady=true; });
+  var iv=setInterval(function(){ n+=3+Math.random()*7; if(n>90){n=90; clearInterval(iv);} bar.style.width=n+'%'; num.textContent=Math.floor(n)+'%'; }, 90);
+  function done(){
+    clearInterval(iv); bar.style.width='100%'; num.textContent='100%';
+    setTimeout(function(){
+      var L=document.getElementById('loading'); L.classList.add('hide');
+      setTimeout(function(){ if(L.parentNode) L.parentNode.removeChild(L); enter(); }, 500);
+    }, 300);
+  }
+  (function wait(){ if((audioReady || Date.now()-t0>3000) && Date.now()-t0>1300) done(); else setTimeout(wait,120); })();
 })();
 </script>
 </body>
