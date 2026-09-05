@@ -437,11 +437,13 @@ function tryPlay(){
 }
 tryPlay();                                   /* 1) 立即尝试(部分安卓WebView/微信允许无手势播放) */
 document.addEventListener('WeixinJSBridgeReady', tryPlay, false);  /* 2) 微信桥就绪后再试 */
-['touchend','click'].forEach(function(ev){ document.addEventListener(ev, tryPlay, {passive:true}); });  /* 3) 首触兜底(iOS等严格策略) */
+['touchstart','touchend','click'].forEach(function(ev){ document.addEventListener(ev, tryPlay, {passive:true}); });  /* 3) 首触兜底: touchstart最跟手(iOS/安卓微信手势策略) */
 mBtn.addEventListener('click', function(){
   if (bgm.paused) { bgm.play(); mBtn.classList.add('on'); }
   else { bgm.pause(); mBtn.classList.remove('on'); }
 });
+/* 若1.6s内仍未解锁播放(无任何触摸), 提示轻触开启(微信策略: 必须真实手势) */
+setTimeout(function(){ if(!played) toast('♪ 轻触屏幕开启音乐'); }, 1600);
 
 /* 原版滚动入场动画驱动: 进入视口触发一次 */
 (function(){
