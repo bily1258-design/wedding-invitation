@@ -445,6 +445,21 @@ function tryPlay(){
 tryPlay();                                   /* 1) 立即尝试(部分安卓WebView/微信允许无手势播放) */
 document.addEventListener('WeixinJSBridgeReady', tryPlay, false);  /* 2) 微信桥就绪后再试 */
 ['touchstart','touchend','click'].forEach(function(ev){ document.addEventListener(ev, tryPlay, {passive:true}); });  /* 3) 首触兜底: touchstart最跟手(iOS/安卓微信手势策略) */
+/* 4) 静音自动播探路: 策略允许muted无手势播放, 播放中试探恢复音量 — 标准Chromium会拒(暂停回退首触), 部分微信XWeb放行=真自动出声 */
+function autoProbe(){
+  if (played) return;
+  bgm.muted = true;
+  var p = bgm.play();
+  if (!p || !p.then) return;                 /* 老内核: 立即尝试已同步成功, 无需探路 */
+  p.then(function(){
+    setTimeout(function(){
+      bgm.muted = false;
+      if (!bgm.paused) { played = true; mBtn.classList.add('on'); }   /* XWeb放行 → 真自动响 */
+      /* 标准内核会在此 pause(无手势unmute被拒) → 静待首触, tryPlay将正常出声 */
+    }, 250);
+  }, function(){ bgm.muted = false; });      /* muted也被拒(罕见) → 复位等首触 */
+}
+setTimeout(autoProbe, 600);                   /* 等立即尝试被拒后探路 */
 mBtn.addEventListener('click', function(){
   if (bgm.paused) { bgm.play(); mBtn.classList.add('on'); }
   else { bgm.pause(); mBtn.classList.remove('on'); }
