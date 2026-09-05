@@ -475,22 +475,30 @@ mBtn.addEventListener('click', function(){
   document.addEventListener('WeixinJSBridgeReady', fix, false);
 })();
 
-/* 打开自动慢速上滑: 1.5s后开始, 90px/s, 触屏/滚轮即停, 到底自动停 */
+/* 封面照片动画到位后再自动慢速上滑: 90px/s, 触屏/滚轮即停, 到底自动停 */
 (function(){
-  var stopped=false, timer=null;
+  var started=false, stopped=false, timer=null;
   function halt(){ stopped=true; if(timer){clearInterval(timer); timer=null;} }
   document.addEventListener('touchstart',halt,{passive:true});
   document.addEventListener('wheel',halt,{passive:true});
   document.addEventListener('touchmove',halt,{passive:true});
-  setTimeout(function(){
-    if(stopped) return;
+  function begin(){
+    if(started||stopped) return;
+    started=true;
     timer=setInterval(function(){
       if(stopped||document.hidden) return;
       var max=document.body.scrollHeight-innerHeight;
       if(scrollY>=max-4){ halt(); return; }
       scrollBy(0,2);
     },22);
-  },1500);
+  }
+  /* 第一张图(封面主照 data-ph=0)入场动画到位后开始 */
+  document.addEventListener('animationend',function(e){
+    var t=e.target;
+    if(t && t.getAttribute && t.getAttribute('data-ph')==='0') setTimeout(begin,500);
+  },true);
+  /* 兜底: 事件未触发时 7.5s 后仍开始 */
+  setTimeout(function(){ if(!started&&!stopped) begin(); }, 7500);
 })();
 </script>
 </body>
