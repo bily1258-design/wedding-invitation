@@ -6,6 +6,13 @@
 <meta name="format-detection" content="telephone=no, email=no, address=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>婚礼邀请函</title>
+<!-- 分享卡片元信息(微信/QQ 转发缩略图与标题抓取; 封面 assets/share-cover.jpg 与 CONFIG 日期/场地同步) -->
+<meta property="og:title" content="婚礼邀请函 · 新郎 & 新娘">
+<meta property="og:description" content="诚邀您参加我们的婚礼 · 2026年10月3日 · 江西老宅">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://bily1258-design.github.io/wedding-invitation/assets/share-cover.jpg">
+<meta property="og:image:width" content="750"><meta property="og:image:height" content="600">
+<link rel="image_src" href="https://bily1258-design.github.io/wedding-invitation/assets/share-cover.jpg">
 <style>
 /* ============ 原版婚礼纪卡片 1:1 复刻(设计稿 750×16586; 已移除末端红包页与来宾姓名/人数提交组 → 高 14958.6) ============ */
 html,body{margin:0;padding:0;background:#FFECF3;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:transparent}
@@ -38,6 +45,22 @@ img.phimg{width:100%;height:100%;object-fit:cover}
 #toast{position:fixed;left:50%;top:46%;transform:translate(-50%,-50%);z-index:100;background:rgba(0,0,0,.66);
   color:#fff;font-size:23.0px;padding:12px 22px;border-radius:12px;display:none;max-width:78%;text-align:center;
   font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.5}
+/* 分享按钮(页尾 CTA) + 微信内引导浮层 */
+#shareBtn{position:absolute;left:50%;transform:translateX(-50%);top:14866px;height:60px;padding:0 40px;border:0;border-radius:30px;
+  background:linear-gradient(180deg,#D51A1A,#C10909);color:#fff;cursor:pointer;z-index:60;white-space:nowrap;
+  font-family:"Songti SC","STSong","SimSun",serif;font-size:28.0px;letter-spacing:5px;
+  box-shadow:0 6px 16px rgba(193,9,9,.38);outline:0;-webkit-tap-highlight-color:transparent}
+#shareBtn:active{transform:translateX(-50%) scale(.96)}
+#shareTip{position:fixed;left:0;top:0;width:100%;height:100%;z-index:300;background:rgba(90,10,20,.42);
+  display:none;align-items:center;justify-content:center;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+#shareTip .stCard{position:relative;width:560px;max-width:82%;box-sizing:border-box;background:#FFFDF7;border-radius:18px;
+  padding:44px 30px 36px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+#shareTip .stT{font-family:"Songti SC","STSong",serif;font-size:33px;color:#991700;letter-spacing:6px;margin-bottom:26px}
+#shareTip .stD{font-size:26px;color:#555;line-height:2;letter-spacing:1px}
+#shareTip .stD b{color:#C10909}
+#shareTip .stOk{margin-top:30px;padding:12px 0;width:240px;border:0;border-radius:28px;background:#C10909;color:#fff;
+  font-size:26px;letter-spacing:8px;text-indent:8px;font-family:"Songti SC","STSong",serif;outline:0}
+#shareTip .stX{position:absolute;right:10px;top:4px;background:none;border:0;font-size:34px;color:#C9B8B0;line-height:1;padding:8px;outline:0}
 /* 地图占位 */
 .mapbox{position:absolute;background:#F9E9EF;border:1px solid #F0D2DE;overflow:hidden;cursor:pointer}
 .mapbox .grid{position:absolute;left:0;top:0;right:0;bottom:0;opacity:.5;
@@ -235,6 +258,7 @@ html.js .q{opacity:0;will-change:opacity,transform}
 
 <!-- 原版[63]红包尾页(送红包/礼物)已按用户要求移除, 仅留署名收尾 -->
 <div class="t fS" style="left:0;top:14813.6px;width:750px;text-align:center;font-size:26.0px;letter-spacing:6px;color:rgba(153,23,0,.55)" id="footerLine"></div>
+<button id="shareBtn">分享给好友</button>
 
 </div></div>
 
@@ -242,6 +266,10 @@ html.js .q{opacity:0;will-change:opacity,transform}
 <audio id="bgm" loop preload="auto" src="assets/music.mp3"></audio>
 <div id="loading"><div class="lc">♥</div><div class="lb"><div class="lp" id="lpct"></div></div><div class="lt"><span id="ltxt">0%</span> · 请柬加载中</div></div>
 <div id="toast"></div>
+<div id="shareTip"><div class="stCard"><button class="stX" id="stClose">✕</button>
+  <div class="stT">转发给亲友</div>
+  <div class="stD">点击右上角 <b>⋯</b><br>选择 <b>发送给朋友</b><br>或 <b>分享到朋友圈</b></div>
+  <button class="stOk" id="stOk">我知道啦</button></div></div>
 
 <script>
 /* ================================================================
@@ -390,6 +418,21 @@ function toast(msg){
   t.textContent = msg; t.style.display = 'block';
   clearTimeout(t._h); t._h = setTimeout(function(){ t.style.display='none'; }, 2600);
 }
+/* ---------- 分享(微信内: 引导右上角⋯转发; 微信外: 系统分享/复制链接) ---------- */
+function isWeChat(){ return /MicroMessenger/i.test(navigator.userAgent); }
+function shareShow(){ document.getElementById('shareTip').style.display='flex'; }
+function shareHide(){ document.getElementById('shareTip').style.display='none'; }
+document.getElementById('shareBtn').addEventListener('click', function(){
+  if (isWeChat()) { shareShow(); return; }   /* 微信内无法 JS 直接拉起分享, 引导右上角菜单 */
+  var u = location.href.split('#')[0];
+  var t = '诚邀您参加我们的婚礼' + (CONFIG.venue ? ' · ' + CONFIG.venue : '');
+  if (navigator.share) { navigator.share({ title: document.title, text: t, url: u }).catch(function(){}); }
+  else if (navigator.clipboard) { navigator.clipboard.writeText(t + ' ' + u).then(function(){ toast('链接已复制, 快发给亲友吧 💌'); }, function(){ toast('长按地址栏可复制链接'); }); }
+  else { toast('长按地址栏可复制链接'); }
+});
+document.getElementById('stOk').addEventListener('click', shareHide);
+document.getElementById('stClose').addEventListener('click', shareHide);
+document.getElementById('shareTip').addEventListener('click', function(e){ if (e.target === this) shareHide(); });
 /* 来宾姓名/人数输入+提交已按用户要求整体移除(原为纯前端演示无真实回收) */
 
 /* ---------- 地图/导航 ---------- */
